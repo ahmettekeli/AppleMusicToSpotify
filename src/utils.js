@@ -9,6 +9,21 @@ const playlistsEndpoint = (userId) => {
 	},
 	findPlaylist = (playlists, playlistName) => {
 		return playlists.items.find((playlist) => playlist.name == playlistName);
+	},
+	encodeItem = (item) => {
+		let splitPart = "";
+		if (item.includes("(")) {
+			splitPart = item.split("(");
+			item = splitPart[0];
+		}
+		if (item.includes("Single")) {
+			splitPart = item.split("-");
+			item = splitPart[0];
+		}
+		if (item.includes(",")) {
+			item.replace(",", "%2C");
+		}
+		return encodeURI(item.replace("'", ""));
 	};
 
 module.exports = {
@@ -16,4 +31,5 @@ module.exports = {
 	addSongsToPlaylistEndpoint,
 	searchEndpoint,
 	findPlaylist,
+	encodeItem,
 };

@@ -1,5 +1,4 @@
 const puppeteer = require("puppeteer");
-// const scrapUrl = "https://music.apple.com/us/playlist/inspired-by-808s-heartbreak/pl.2faffa602c8644b5a840e4359e265503";
 
 const scrap = async (url) => {
 	try {
