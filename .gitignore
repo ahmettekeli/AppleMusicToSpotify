@@ -1,5 +1,5 @@
-/node_modules
+Backend/node_modules
+Frontend/node_modules
 npm-debug.log
 .DS_Store
-/*.env
-config.json
+Frontend/config.json
