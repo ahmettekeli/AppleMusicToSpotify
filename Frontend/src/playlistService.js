@@ -1,8 +1,9 @@
+const regeneratorRuntime = require("regenerator-runtime");
 const axios = require("axios");
-const configs = require("../config.json");
+const env = require("../config");
 const { playlistsEndpoint, addSongsToPlaylistEndpoint, searchEndpoint, findPlaylist, encodeItem } = require("./utils");
-const apiToken = configs.env.token;
-const userId = configs.env.userId;
+const apiToken = env.token;
+const userId = env.userId;
 
 const getPlaylistDataFromAPI = async (url, requestBody) => {
 		try {

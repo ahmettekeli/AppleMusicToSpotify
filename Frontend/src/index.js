@@ -1,5 +1,5 @@
 const { getPlaylistDataFromAPI, getSongUris, generateSpotifyPlaylist } = require("./playlistService");
-const { env } = require("../config.json");
+const env = require("../config");
 const requestBody = {
 	url: env.playlistURL,
 };

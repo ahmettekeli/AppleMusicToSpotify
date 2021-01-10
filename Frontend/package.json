@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -21,8 +22,15 @@
     "url": "https://github.com/ahmettekeli/AppleMusicToSpotify/issues"
   },
   "homepage": "https://github.com/ahmettekeli/AppleMusicToSpotify#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/preset-env": "^7.11.5",
+    "babel-loader": "^8.1.0",
+    "regenerator-runtime": "^0.13.7",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12"
+  },
   "dependencies": {
-    "axios": "^0.21.1",
-    "puppeteer": "^5.5.0"
+    "axios": "^0.21.1"
   }
 }
