@@ -2,4 +2,4 @@ Backend/node_modules
 Frontend/node_modules
 npm-debug.log
 .DS_Store
-Frontend/config.json
+Frontend/config.js
