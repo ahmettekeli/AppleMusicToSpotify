@@ -4,7 +4,15 @@ const { playlistsEndpoint, addSongsToPlaylistEndpoint, searchEndpoint, findPlayl
 const apiToken = configs.env.token;
 const userId = configs.env.userId;
 
-const createPlaylist = async (name, description, isPublic) => {
+const getPlaylistDataFromAPI = async (url, requestBody) => {
+		try {
+			const response = await axios.post(url, requestBody);
+			return response.data;
+		} catch (error) {
+			console.log({ error });
+		}
+	},
+	createPlaylist = async (name, description, isPublic) => {
 		let requestBody = {
 			name,
 			description,
@@ -24,7 +32,7 @@ const createPlaylist = async (name, description, isPublic) => {
 			console.log({ error });
 		}
 	},
-	retrievePlaylistData = async (name) => {
+	retrievePlaylistDataFromSpotify = async (name) => {
 		try {
 			const response = await axios.get(playlistsEndpoint(userId), {
 				headers: {
@@ -96,12 +104,32 @@ const createPlaylist = async (name, description, isPublic) => {
 		} catch (error) {
 			console.log({ error });
 		}
+	},
+	generateSpotifyPlaylist = async (uris) => {
+		try {
+			const listCreattionResponse = await createPlaylist(
+				"My Awesome Spotify Playlist",
+				"My awesome Spotify Playlist which is converted from Apple Music.",
+				true
+			);
+			if (listCreattionResponse) {
+				const playListData = await retrievePlaylistDataFromSpotify("My Awesome Spotify Playlist"),
+					songAdditionResponse = await addSongsToPlaylist(uris, playListData.id);
+				if (songAdditionResponse.status == 201) {
+					console.log("Spotify playlist has been created.");
+				}
+			}
+		} catch (error) {
+			console.log({ error });
+		}
 	};
 
 module.exports = {
 	createPlaylist,
-	retrievePlaylistData,
+	retrievePlaylistDataFromSpotify,
+	getPlaylistDataFromAPI,
 	searchSong,
 	addSongsToPlaylist,
 	getSongUris,
+	generateSpotifyPlaylist,
 };
