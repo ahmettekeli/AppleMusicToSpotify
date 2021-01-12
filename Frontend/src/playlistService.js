@@ -106,18 +106,14 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 			console.log({ error });
 		}
 	},
-	generateSpotifyPlaylist = async (uris) => {
+	generateSpotifyPlaylist = async (uris, args) => {
 		try {
-			const listCreattionResponse = await createPlaylist(
-				"My Awesome Spotify Playlist",
-				"My awesome Spotify Playlist which is converted from Apple Music.",
-				true
-			);
+			const listCreattionResponse = await createPlaylist(args.name, args.description, true);
 			if (listCreattionResponse) {
-				const playListData = await retrievePlaylistDataFromSpotify("My Awesome Spotify Playlist"),
+				const playListData = await retrievePlaylistDataFromSpotify(args.name),
 					songAdditionResponse = await addSongsToPlaylist(uris, playListData.id);
 				if (songAdditionResponse.status == 201) {
-					console.log("Spotify playlist has been created.");
+					console.log(`Spotify playlist with the name: ${args.name} has been created.`);
 				}
 			}
 		} catch (error) {
