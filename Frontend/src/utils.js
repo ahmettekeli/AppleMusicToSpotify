@@ -20,10 +20,7 @@ const playlistsEndpoint = (userId) => {
 			splitPart = item.split("-");
 			item = splitPart[0];
 		}
-		if (item.includes(",")) {
-			item.replace(",", "%2C");
-		}
-		return encodeURI(item.replace("'", ""));
+		return encodeURIComponent(item.replace("'", ""));
 	};
 
 module.exports = {

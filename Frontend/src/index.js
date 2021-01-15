@@ -1,3 +1,4 @@
+const axios = require("axios");
 const { getPlaylistDataFromAPI, getSongUris, generateSpotifyPlaylist } = require("./playlistService");
 const env = require("../config");
 console.log("api url:", env.apiUrl);
@@ -9,7 +10,7 @@ form.onsubmit = (e) => {
 	e.preventDefault();
 	//check if the link is valid here
 	requestBody.url = e.target[0].value;
-	console.log({ name: e.target[1].value, description: e.target[2].value });
+	// console.log({ name: e.target[1].value, description: e.target[2].value });
 	convertPlaylist({ name: e.target[1].value, description: e.target[2].value });
 };
 

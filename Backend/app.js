@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const playlistRoutes = require("./API/Routes/playlists");
+const spotifyAuthRoutes = require("./API/Routes/spotifyAuth");
 const app = express();
 
 //CORS settings access for everyone
@@ -22,6 +23,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use("/playlists", playlistRoutes);
+app.use("/spotify", spotifyAuthRoutes);
 
 //when no routes to handle the request
 app.use((req, res, next) => {
