@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const playlistRoutes = require("./API/Routes/appleMusic");
 const spotifyAuthRoutes = require("./API/Routes/spotify");
 const serviceController = require("./API/Controllers/serviceController");
@@ -23,6 +24,7 @@ app.use(
 	})
 );
 app.use(bodyParser.json());
+app.use(cookieParser());
 app.use("/applemusic", playlistRoutes);
 app.use("/spotify", spotifyAuthRoutes);
 app.get("/", serviceController.isServerOnline);
