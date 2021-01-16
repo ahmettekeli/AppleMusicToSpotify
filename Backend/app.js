@@ -1,7 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const playlistRoutes = require("./API/Routes/playlists");
-const spotifyAuthRoutes = require("./API/Routes/spotifyAuth");
+const playlistRoutes = require("./API/Routes/appleMusic");
+const spotifyAuthRoutes = require("./API/Routes/spotify");
+const serviceController = require("./API/Controllers/serviceController");
 const app = express();
 
 //CORS settings access for everyone
@@ -22,8 +23,9 @@ app.use(
 	})
 );
 app.use(bodyParser.json());
-app.use("/playlists", playlistRoutes);
+app.use("/applemusic", playlistRoutes);
 app.use("/spotify", spotifyAuthRoutes);
+app.get("/", serviceController.isServerOnline);
 
 //when no routes to handle the request
 app.use((req, res, next) => {
