@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import queryString from "query-string";
 import { convertPlaylist, getUserId } from "../Services/SpotifyPlaylistService";
+import InfoSection from "./InfoSection";
+import "./Loggedin.css";
 
 const Loggedin = (props) => {
 	// useEffect(() => {
@@ -8,14 +10,15 @@ const Loggedin = (props) => {
 	// 	const accessToken = parsedText.access_token;
 	// 	console.log({ accessToken });
 	// });
+	let isUrlValid = true;
 	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
 		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
 		[spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState(""),
-		parsedToken = (searchText) => {
+		getSpotifyToken = (searchText) => {
 			return queryString.parse(searchText.location.search).access_token;
 		},
 		validateInput = () => {
-			return false;
+			return true;
 		},
 		clickHandler = async () => {
 			if (!validateInput()) {
@@ -25,18 +28,25 @@ const Loggedin = (props) => {
 					name: spotifyPlaylistName,
 					description: spotifyPlaylistDescription,
 				};
-				const apiToken = parsedToken(props);
+				const apiToken = getSpotifyToken(props);
 				const userId = await getUserId(apiToken);
 				convertPlaylist(userId, apiToken, params);
 			} else {
 				//Show info about the input not being a valid URL.
+				isUrlValid = false;
+				console.log("click handler false", isUrlValid);
 			}
 			//
+		},
+		showValidations = (isUrlValid) => {
+			if (isUrlValid) {
+				return <p className="validation-fail">Url is not valid.</p>;
+			} else return;
 		};
 
 	return (
 		<div>
-			<h3>Access Token:{parsedToken(props)}</h3>
+			{/* <h3>Access Token:{getSpotifyToken(props)}</h3> */}
 			<label>Apple Music Playlist URL:</label>
 			<input
 				type="text"
@@ -45,6 +55,7 @@ const Loggedin = (props) => {
 				onChange={(e) => setAppleMusicPlaylistUrl(e.target.value)}
 			/>
 			<br />
+			{showValidations(isUrlValid)}
 			<label>Spotify Playlist Name:</label>
 			<input
 				type="text"
@@ -63,6 +74,9 @@ const Loggedin = (props) => {
 			<button id="convert" onClick={clickHandler}>
 				Convert
 			</button>
+			<br />
+			<br />
+			<InfoSection />
 		</div>
 	);
 };

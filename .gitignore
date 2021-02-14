@@ -3,4 +3,3 @@ Frontend/node_modules
 npm-debug.log
 .DS_Store
 Backend/.env
-Frontend/config.js

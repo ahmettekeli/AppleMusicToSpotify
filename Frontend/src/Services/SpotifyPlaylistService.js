@@ -89,6 +89,7 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 				return songData;
 			} else {
 				console.log({ song: song, artist: artist, album, message: "Song could not be found in spotify." });
+				//TODO Could fire and event and send not found song data.
 			}
 			return null;
 		} catch (error) {
@@ -102,6 +103,7 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 			song = await searchSong(item.song, item.artist, item.album, apiToken);
 			if (song) {
 				songUris.push(song.uri);
+				//TODO Could fire an event and provide found song data.
 			}
 		}
 		return songUris;
@@ -132,6 +134,7 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 					songAdditionResponse = await addSongsToPlaylist(uris, playListData.id, apiToken);
 				if (songAdditionResponse.status === 201) {
 					console.log(`Spotify playlist with the name: ${args.name} has been created.`);
+					//TODO Could fire and event and send playlist created message.
 				}
 			}
 		} catch (error) {
@@ -148,6 +151,7 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 				console.log("song data: ", response.data);
 				getSongUris(response.data, apiToken).then((songUris) => {
 					console.log(`${songUris.length} songs has been found on Spotify.`);
+					//TODO Could fire and event and send converted songs statistics.
 					generateSpotifyPlaylist(songUris, userId, apiToken, {
 						name: args.name,
 						description: args.description,

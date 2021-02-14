@@ -1,0 +1,40 @@
+/* TODO */
+
+.song-card{
+    text-align: center;
+    max-width: 29em;
+    height: 3em;
+    background:#c5c2c2;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.song-found{
+    background: #85DD85;
+}
+.song-found:hover{
+    background: #70b970
+}
+
+.song-not-found{
+    background: #dd8585
+}
+.song-not-found:hover{
+    background: #995151
+}
+
+.icon{
+}
+
+.fail-icon{
+    color: #990303
+}
+
+.success-icon{
+    color: #017a0b;
+}
+
+.card-container{
+    margin:auto;
+    padding:3px;
+}

@@ -1,0 +1,11 @@
+.info{
+    max-width: 30em;
+    height: 20em;
+    padding: 1em;
+    margin: auto;
+    border: 0.062em solid #999;
+    background-color: #fff;
+    overflow: auto;
+    direction: ltr;
+    text-align: left;
+}
