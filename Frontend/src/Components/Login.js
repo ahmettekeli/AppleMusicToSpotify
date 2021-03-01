@@ -18,7 +18,7 @@ const Login = () => {
 	//Checking if already logged in.
 	return (
 		<a className="login-a" href={loginUrl}>
-			Login
+			Login to Spotify
 		</a>
 	);
 };

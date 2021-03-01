@@ -1,25 +1,27 @@
 /* TODO */
 
-.song-card{
+.info-card{
     text-align: center;
     max-width: 29em;
     height: 3em;
     background:#c5c2c2;
-    margin: auto;
+    margin: 10px auto;
+    padding:auto;
     border-radius: 10px;
+    box-shadow: 3px 3px 5px #999;
 }
 
-.song-found{
+.info-success{
     background: #85DD85;
 }
-.song-found:hover{
+.info-success:hover{
     background: #70b970
 }
 
-.song-not-found{
+.info-fail{
     background: #dd8585
 }
-.song-not-found:hover{
+.info-fail:hover{
     background: #995151
 }
 
@@ -36,5 +38,5 @@
 
 .card-container{
     margin:auto;
-    padding:3px;
+    padding:10px;
 }

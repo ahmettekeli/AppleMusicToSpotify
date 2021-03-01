@@ -3,9 +3,11 @@
     height: 20em;
     padding: 1em;
     margin: auto;
-    border: 0.062em solid #999;
+    border: 1px solid #999;
     background-color: #fff;
     overflow: auto;
     direction: ltr;
     text-align: left;
+    border-radius:3%;
+    box-shadow: 3px 3px 5px #999;
 }
