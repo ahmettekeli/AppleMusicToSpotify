@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import queryString from "query-string";
 import { convertPlaylist, getUserId } from "../Services/SpotifyPlaylistService";
 
+//TODO: Implement info card creation on playlist conversion.
+//TODO: Add progress bar.
+
 function ConversionForm(props) {
 	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
 		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
@@ -9,10 +12,11 @@ function ConversionForm(props) {
 		[isUrlValid, setIsUrlValid] = useState(true);
 
 	const getSpotifyToken = (searchText) => {
+			console.log(searchText);
 			return queryString.parse(searchText.location.search).access_token;
 		},
 		validateInput = () => {
-			return true;
+			return false;
 		},
 		clickHandler = async () => {
 			if (!validateInput()) {
@@ -22,7 +26,8 @@ function ConversionForm(props) {
 					name: spotifyPlaylistName,
 					description: spotifyPlaylistDescription,
 				};
-				const apiToken = getSpotifyToken(props);
+				//TODO remove props.props. Did it for debug purposes.
+				const apiToken = getSpotifyToken(props.props);
 				const userId = await getUserId(apiToken);
 				convertPlaylist(userId, apiToken, params);
 			} else {

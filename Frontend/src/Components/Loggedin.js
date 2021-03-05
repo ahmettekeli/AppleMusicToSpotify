@@ -7,7 +7,8 @@ import "./Loggedin.css";
 const Loggedin = (props) => {
 	return (
 		<div>
-			<ConversionForm />
+			{/* TODO:Fix this prop drilling. */}
+			<ConversionForm props={props} />
 			<InfoSection />
 		</div>
 	);
