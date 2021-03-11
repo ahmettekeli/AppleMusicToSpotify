@@ -1,9 +1,14 @@
-const regeneratorRuntime = require("regenerator-runtime");
 const axios = require("axios");
-const env = require("../config");
-const { playlistsEndpoint, addSongsToPlaylistEndpoint, searchEndpoint, findPlaylist, encodeItem } = require("./utils");
-const apiToken = env.token;
-const userId = env.userId;
+const {
+	playlistsEndpoint,
+	addSongsToPlaylistEndpoint,
+	searchEndpoint,
+	findPlaylist,
+	userEndpoint,
+	encodeItem,
+} = require("../Utils/SpotifyUtil");
+
+const API_URL = process.env.API_URL;
 
 const getPlaylistDataFromAPI = async (url, requestBody) => {
 		try {
@@ -13,7 +18,19 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 			console.log({ error });
 		}
 	},
-	createPlaylist = async (name, description, isPublic) => {
+	getUserId = async (apiToken) => {
+		try {
+			const response = await axios.get(userEndpoint(), {
+				headers: {
+					Authorization: `Bearer ${apiToken}`,
+				},
+			});
+			return response.data.id;
+		} catch (error) {
+			console.log({ error });
+		}
+	},
+	createPlaylist = async (name, description, isPublic, userId, apiToken) => {
 		let requestBody = {
 			name,
 			description,
@@ -22,7 +39,7 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 		try {
 			const response = await axios.post(playlistsEndpoint(userId), requestBody, {
 				headers: {
-					authorization: apiToken,
+					Authorization: `Bearer ${apiToken}`,
 				},
 			});
 			return {
@@ -33,11 +50,11 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 			console.log({ error });
 		}
 	},
-	retrievePlaylistDataFromSpotify = async (name) => {
+	retrievePlaylistDataFromSpotify = async (name, userId, apiToken) => {
 		try {
 			const response = await axios.get(playlistsEndpoint(userId), {
 				headers: {
-					authorization: apiToken,
+					Authorization: `Bearer ${apiToken}`,
 				},
 			});
 			const createdPlaylist = findPlaylist(response.data, name);
@@ -54,11 +71,11 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 			console.log({ error });
 		}
 	},
-	searchSong = async (song, artist, album) => {
+	searchSong = async (song, artist, album, apiToken) => {
 		try {
 			const response = await axios.get(searchEndpoint(encodeItem(song), encodeItem(artist), encodeItem(album)), {
 				headers: {
-					authorization: apiToken,
+					Authorization: `Bearer ${apiToken}`,
 				},
 			});
 			if (response.data.tracks.items[0]) {
@@ -71,31 +88,33 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 				return songData;
 			} else {
 				console.log({ song: song, artist: artist, album, message: "Song could not be found in spotify." });
+				//TODO Could fire and event and send not found song data.
 			}
 			return null;
 		} catch (error) {
 			console.log({ error });
 		}
 	},
-	getSongUris = async (songs) => {
+	getSongUris = async (songs, apiToken) => {
 		let songUris = [],
 			song;
 		for (let item of songs) {
-			song = await searchSong(item.song, item.artist, item.album);
+			song = await searchSong(item.song, item.artist, item.album, apiToken);
 			if (song) {
 				songUris.push(song.uri);
+				//TODO Could fire an event and provide found song data.
 			}
 		}
 		return songUris;
 	},
-	addSongsToPlaylist = async (uriList, playlistId) => {
+	addSongsToPlaylist = async (uriList, playlistId, apiToken) => {
 		let requestBody = {
 			uris: uriList,
 		};
 		try {
 			const response = await axios.post(addSongsToPlaylistEndpoint(playlistId), requestBody, {
 				headers: {
-					authorization: apiToken,
+					Authorization: `Bearer ${apiToken}`,
 				},
 			});
 			return {
@@ -106,19 +125,41 @@ const getPlaylistDataFromAPI = async (url, requestBody) => {
 			console.log({ error });
 		}
 	},
-	generateSpotifyPlaylist = async (uris, args) => {
+	generateSpotifyPlaylist = async (uris, userId, apiToken, args) => {
 		try {
-			const listCreattionResponse = await createPlaylist(args.name, args.description, true);
-			if (listCreattionResponse) {
-				const playListData = await retrievePlaylistDataFromSpotify(args.name),
-					songAdditionResponse = await addSongsToPlaylist(uris, playListData.id);
-				if (songAdditionResponse.status == 201) {
+			const listCreationResponse = await createPlaylist(args.name, args.description, true, userId, apiToken);
+			if (listCreationResponse) {
+				const playListData = await retrievePlaylistDataFromSpotify(args.name, userId, apiToken),
+					songAdditionResponse = await addSongsToPlaylist(uris, playListData.id, apiToken);
+				if (songAdditionResponse.status === 201) {
 					console.log(`Spotify playlist with the name: ${args.name} has been created.`);
+					//TODO Could fire and event and send playlist created message.
 				}
 			}
 		} catch (error) {
 			console.log({ error });
 		}
+	},
+	//TODO hide apiUrl, modify args object.
+	convertPlaylist = (userId, apiToken, args) => {
+		console.log(userId, args);
+		console.log(apiToken);
+		//get api url, requestBody,
+		getPlaylistDataFromAPI(API_URL, { url: args.url })
+			.then((response) => {
+				console.log("song data: ", response.data);
+				getSongUris(response.data, apiToken).then((songUris) => {
+					console.log(`${songUris.length} songs has been found on Spotify.`);
+					//TODO Could fire and event and send converted songs statistics.
+					generateSpotifyPlaylist(songUris, userId, apiToken, {
+						name: args.name,
+						description: args.description,
+					});
+				});
+			})
+			.catch((error) => {
+				console.log({ error });
+			});
 	};
 
 module.exports = {
@@ -129,4 +170,6 @@ module.exports = {
 	addSongsToPlaylist,
 	getSongUris,
 	generateSpotifyPlaylist,
+	convertPlaylist,
+	getUserId,
 };

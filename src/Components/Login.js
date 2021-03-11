@@ -1,5 +1,5 @@
 import React from "react";
-const loginUrl = "https://apple-music-playlist-scrap-api.herokuapp.com/spotify/login";
+const API_LOGIN_URL = process.env.API_LOGIN_URL;
 // const loginUrl = "https://localhost:3004/spotify/login";
 
 // const Login = (currentUser) => {
@@ -17,7 +17,7 @@ const loginUrl = "https://apple-music-playlist-scrap-api.herokuapp.com/spotify/l
 const Login = () => {
 	//Checking if already logged in.
 	return (
-		<a className="login-a" href={loginUrl}>
+		<a className="login-a" href={API_LOGIN_URL}>
 			Login to Spotify
 		</a>
 	);
