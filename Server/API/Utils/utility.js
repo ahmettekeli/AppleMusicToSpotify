@@ -1,6 +1,6 @@
-const puppeteer = require("puppeteer");
+import puppeteer from "puppeteer";
 
-const scrap = async (url) => {
+export const scrap = async (url) => {
 		try {
 			const browser = await puppeteer.launch({ args: ["--no-sandbox"] });
 			const page = await browser.newPage();
@@ -24,8 +24,8 @@ const scrap = async (url) => {
 		} catch (error) {
 			console.log(`Error:${error}`);
 		}
-	},
-	generateRandomString = function (length) {
+	};
+	export const generateRandomString = function (length) {
 		let text = "";
 		let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -35,4 +35,4 @@ const scrap = async (url) => {
 		return text;
 	};
 
-module.exports = { scrap, generateRandomString };
+// export default { scrap, generateRandomString };

@@ -1,8 +1,9 @@
-require("dotenv").config();
-const axios = require("axios");
-const { generateRandomString } = require("../Utils/utility");
-const queryString = require("querystring");
-
+// require("dotenv").config();
+import dotenv from "dotenv";
+import axios from "axios";
+import { generateRandomString } from "../Utils/utility.js";
+import queryString from "querystring";
+dotenv.config();
 const redirect_uri = process.env.REDIRECT_URI || "http://localhost:3004/spotify/callback";
 const stateKey = "spotify_auth_state";
 
@@ -96,4 +97,4 @@ const login = (req, res) => {
 		}
 	};
 
-module.exports = { login, getToken, refreshToken };
+export default { login, getToken, refreshToken };

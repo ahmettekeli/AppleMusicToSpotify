@@ -1,9 +1,9 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const cookieParser = require("cookie-parser");
-const playlistRoutes = require("./API/Routes/appleMusic");
-const spotifyAuthRoutes = require("./API/Routes/spotify");
-const serviceController = require("./API/Controllers/serviceController");
+import express from "express";
+import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import playlistRoutes from "./API/Routes/appleMusic.js";
+import spotifyAuthRoutes from "./API/Routes/spotify.js";
+import serviceController from "./API/Controllers/serviceController.js";
 const app = express();
 
 //CORS settings access for everyone
@@ -46,4 +46,4 @@ app.use((error, req, res, next) => {
 	});
 });
 
-module.exports = app;
+export default app;

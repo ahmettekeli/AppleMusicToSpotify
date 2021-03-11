@@ -4,4 +4,4 @@ const isServerOnline = (req, res) => {
 	});
 };
 
-module.exports = { isServerOnline };
+export default { isServerOnline };

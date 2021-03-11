@@ -1,7 +1,7 @@
-const express = require("express");
+import express from "express";
+import appleMusicController from "../Controllers/appleMusic.js";
 const router = express.Router();
-const appleMusicController = require("../Controllers/appleMusic");
 
 router.post("/scrap", appleMusicController.getSongsFromAppleMusicPlaylist);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const { scrap } = require("../Utils/utility");
+import { scrap } from "../Utils/utility.js";
 
 const getSongsFromAppleMusicPlaylist = async (req, res) => {
 	res.status(200).json({
@@ -6,4 +6,4 @@ const getSongsFromAppleMusicPlaylist = async (req, res) => {
 	});
 };
 
-module.exports = { getSongsFromAppleMusicPlaylist };
+export default { getSongsFromAppleMusicPlaylist };

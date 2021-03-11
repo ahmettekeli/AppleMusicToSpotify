@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
+import SpotifyAuthController from "../Controllers/spotify.js";
 const router = express.Router();
-const SpotifyAuthController = require("../Controllers/spotify");
 
 router.get("/login", SpotifyAuthController.login);
 router.get("/callback", SpotifyAuthController.getToken);
 router.get("/refreshtoken", SpotifyAuthController.refreshToken);
 
-module.exports = router;
+export default router;
