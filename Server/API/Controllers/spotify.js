@@ -53,16 +53,16 @@ const login = (req, res) => {
 		} else {
 			res.clearCookie("stateKey");
 			try {
-				response = await axios.post(requestUrl, null, {
+				let response = await axios.post(requestUrl, null, {
 					params: requestParams,
 					headers: requestHeader,
 				});
 				const accessToken = response.data.access_token,
 					uri = process.env.FRONTEND_URI || "http://localhost:3000";
-				res.redirect(uri + "?access_token" + accessToken);
+				res.redirect(uri + "/convert/?access_token=" + accessToken);
 			} catch (error) {
 				res.status(200).json({
-					error: error,
+					error: error.message,
 				});
 			}
 		}
@@ -92,7 +92,7 @@ const login = (req, res) => {
 			res.redirect(uri + "?access_token" + accessToken);
 		} catch (error) {
 			res.status(200).json({
-				error: error,
+				error: error.message,
 			});
 		}
 	};

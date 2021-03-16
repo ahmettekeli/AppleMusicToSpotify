@@ -1,41 +1,33 @@
 import React, { useState } from "react";
-import queryString from "query-string";
-import { convertPlaylist, getUserId } from "../Services/SpotifyPlaylistService";
+import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService";
+import {validateUrl} from "../Utils/validation";
+import {parseAccessToken} from "../Utils/utils";
 
 //TODO: Implement info card creation on playlist conversion.
 //TODO: Add progress bar.
 
 function ConversionForm(props) {
-	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
+	const 
+		[appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
 		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
 		[spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState(""),
 		[isUrlValid, setIsUrlValid] = useState(true);
 
-	const getSpotifyToken = (searchText) => {
-			console.log(searchText);
-			return queryString.parse(searchText.location.search).access_token;
-		},
-		validateInput = () => {
-			return false;
-		},
-		clickHandler = async () => {
-			if (!validateInput()) {
-				//TODO run convertPlaylist on button click, but how to suppply params.
+	const 
+		handleConversion = async () => {
+			if (!validateUrl(appleMusicPlaylistUrl)) {
 				const params = {
 					url: appleMusicPlaylistUrl,
 					name: spotifyPlaylistName,
 					description: spotifyPlaylistDescription,
 				};
-				//TODO remove props.props. Did it for debug purposes.
-				const apiToken = getSpotifyToken(props.props);
+				const apiToken = parseAccessToken(props.query);
 				const userId = await getUserId(apiToken);
 				convertPlaylist(userId, apiToken, params);
 			} else {
-				//Show info about the input not being a valid URL.
-				setIsUrlValid({ isUrlValid: false });
-				console.log("click handler false", isUrlValid);
+				setIsUrlValid(false);
+				console.log("apple music playlist url is not valid", isUrlValid);
 			}
-			//
 		},
 		showValidations = () => {
 			if (!isUrlValid) {
@@ -70,7 +62,7 @@ function ConversionForm(props) {
 				value={spotifyPlaylistDescription}
 				onChange={(e) => setSpotifyPlaylistDescription(e.target.value)}
 			/>
-			<button id="convert" onClick={clickHandler}>
+			<button onClick={handleConversion}>
 				Convert
 			</button>
 		</>

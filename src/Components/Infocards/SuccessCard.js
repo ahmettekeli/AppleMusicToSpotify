@@ -1,13 +1,14 @@
 import React from "react";
+import {CgCheckO} from "react-icons/cg";
 import "./InfoCard.css";
 
 const SuccessCard = (props) => {
 	return (
 		<div className="info-card info-success ">
 			<div className="icon">
-				<span className="material-icons success-icon">check_circle_outline</span>
+				<CgCheckO/>
 			</div>
-			{props.info}
+			{props.data}
 		</div>
 	);
 };

@@ -1,0 +1,5 @@
+export const LIST_CONVERSION_INFO = "LIST_CONVERSION_INFO";
+export const DELETE_INFO_LIST = "DELETE_INFO_LIST";
+export const ADD_CONVERSION_INFO = "ADD_CONVERSION_INFO";
+export const LOGIN = "LOGIN";
+export const LOGOUT = "LOGOUT";

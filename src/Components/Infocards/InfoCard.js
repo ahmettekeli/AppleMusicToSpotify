@@ -8,9 +8,9 @@ const InfoCard = (props) => {
 	},
 	createCard = (props) => {
 		if (props.isSuccess) {
-			return <SuccessCard info={props.info} />;
+			return <SuccessCard data={props.data}/>;
 		}
-		return <FailCard info={props.info} />;
+		return <FailCard data={props.data}/>;
 	};
 
 export default InfoCard;

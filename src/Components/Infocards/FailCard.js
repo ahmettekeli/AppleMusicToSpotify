@@ -1,13 +1,14 @@
 import React from "react";
+import {CgCloseO} from "react-icons/cg";
 import "./InfoCard.css";
 
 const FailCard = (props) => {
 	return (
 		<div className="info-card info-fail ">
 			<div className="icon">
-				<span className="material-icons fail-icon">highlight_off</span>
+				<CgCloseO/>
 			</div>
-			{props.info}
+			{props.data}
 		</div>
 	);
 };
