@@ -1,27 +1,21 @@
 import React from "react";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import "./InfoSection.css";
-import InfoCard from "./Infocards/InfoCard";
+import InfoCard from "./InfoCard";
 
-// TODO
 const InfoSection = (props) => {
-
-	const handleInfoCards = (infoList) =>{
-		if(infoList){
-			return infoList.map(info=><InfoCard key={info.id} isSuccess={info.isSuccess} data={info.data}/>)
+	const handleInfoCards = (infoList) => {
+		if (infoList) {
+			return infoList.map((info) => <InfoCard key={info.id} isSuccess={info.isSuccess} data={info.data} />);
 		}
 		return null;
-	}
-	return (
-		<div className="info">
-			{handleInfoCards(props.infoList)}
-		</div>
-	);
+	};
+	return <div className="info">{handleInfoCards(props.infoList)}</div>;
 };
 
-const mapStateToProps = (state) =>{
+const mapStateToProps = (state) => {
 	return {
-		infoList: state.info.infoList
-	}
+		infoList: state.info.infoList,
+	};
 };
 export default connect(mapStateToProps)(InfoSection);

@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService";
-import {validateUrl} from "../Utils/validation";
-import {parseAccessToken} from "../Utils/utils";
+import { validateUrl } from "../Utils/utils";
+import { parseAccessToken } from "../Utils/utils";
 
-//TODO: Implement info card creation on playlist conversion.
 //TODO: Add progress bar.
 
 function ConversionForm(props) {
-	const 
-		[appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
+	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
 		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
 		[spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState(""),
 		[isUrlValid, setIsUrlValid] = useState(true);
 
-	const 
-		handleConversion = async () => {
-			if (!validateUrl(appleMusicPlaylistUrl)) {
+	const handleConversion = async () => {
+			if (validateUrl(appleMusicPlaylistUrl)) {
 				const params = {
 					url: appleMusicPlaylistUrl,
 					name: spotifyPlaylistName,
@@ -26,7 +23,7 @@ function ConversionForm(props) {
 				convertPlaylist(userId, apiToken, params);
 			} else {
 				setIsUrlValid(false);
-				console.log("apple music playlist url is not valid", isUrlValid);
+				console.log("apple music playlist url is not valid");
 			}
 		},
 		showValidations = () => {
@@ -62,9 +59,7 @@ function ConversionForm(props) {
 				value={spotifyPlaylistDescription}
 				onChange={(e) => setSpotifyPlaylistDescription(e.target.value)}
 			/>
-			<button onClick={handleConversion}>
-				Convert
-			</button>
+			<button onClick={handleConversion}>Convert</button>
 		</>
 	);
 }
