@@ -1,6 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Header from "./Components/Header";
+import Navbar from "./Components/Navbar/Navbar";
 import Login from "./pages/Login";
 import Convert from "./pages/Convert";
 // import AppleMusicToSpotify from "./pages/AppleMusicToSpotify";
@@ -8,7 +8,7 @@ import "./App.css";
 function App() {
 	return (
 		<div>
-			<Header />
+			<Navbar />
 			<br />
 			<Switch>
 				<Route path="/login">
