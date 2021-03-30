@@ -1,19 +1,17 @@
 import React from "react";
-import { CgCheckO, CgCloseO } from "react-icons/cg";
+import styled from "styled-components";
 import "./InfoCard.css";
 
-const InfoCard = (props) => {
-		return createCard(props);
-	},
+const InfoCard = (props) => createCard(props),
 	createCard = (props) => {
 		let cardClass = "info-card";
 		let cardIcon;
 		if (props.isSuccess) {
 			cardClass += " info-success";
-			cardIcon = <CgCheckO />;
+			cardIcon = <i class="fa fa-check-circle" aria-hidden="true"></i>;
 		} else {
 			cardClass += " info-fail";
-			cardIcon = <CgCloseO />;
+			cardIcon = <i class="fa fa-times-circle" aria-hidden="true"></i>;
 		}
 
 		return (
