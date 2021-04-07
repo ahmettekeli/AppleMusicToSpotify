@@ -1,7 +1,23 @@
 import { LIST_CONVERSION_INFO, DELETE_INFO_LIST, ADD_CONVERSION_INFO } from "../actionTypes";
 
 const initialState = {
-	infoList: [],
+	infoList: [
+		{
+			id: 1,
+			isSuccess: true,
+			data: "Ahmet - Tekeli",
+		},
+		{
+			id: 2,
+			isSuccess: false,
+			data: "Enver - Tekeli",
+		},
+		{
+			id: 3,
+			isSuccess: true,
+			data: "Guclen - Tekeli",
+		},
+	],
 };
 
 //Apply redux thunk here for async operations

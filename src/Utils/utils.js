@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-const urlRegex = /^((https?|http):\/\/)?(www.)?[a-z0-9]+\.[a-z]+(\/[a-zA-Z0-9#]+\/?)*$/;
+const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
 export const parseAccessToken = (searchText) => {
 	console.log({ searchText });

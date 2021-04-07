@@ -122,7 +122,7 @@ export const searchSong = async (song, artist, album, apiToken) => {
 				addConversionInfo({
 					id: uuidv4(),
 					isSuccess: true,
-					data: `Found: ${songData.name} - ${songData.artist}`,
+					data: `${songData.name} - ${songData.artist}`,
 				})
 			);
 			return songData;

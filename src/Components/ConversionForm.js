@@ -13,6 +13,8 @@ function ConversionForm(props) {
 
 	const handleConversion = async () => {
 			if (validateUrl(appleMusicPlaylistUrl)) {
+				// if (true) {
+				console.log("valid");
 				const params = {
 					url: appleMusicPlaylistUrl,
 					name: spotifyPlaylistName,

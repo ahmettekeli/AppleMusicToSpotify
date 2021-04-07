@@ -1,31 +1,42 @@
-/* TODO */
+@import "../vars.css";
 
 .info-card{
-    text-align: center;
-    max-width: 29em;
-    height: 3em;
-    background:#c5c2c2;
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 4rem;
     margin: 10px auto;
-    padding:auto;
+    padding: 0 10px;
     border-radius: 10px;
-    box-shadow: 3px 3px 5px #999;
+    box-shadow:
+        0 0.7px 2.2px rgba(0, 0, 0, 0.081),
+        0 2.2px 7.4px rgba(0, 0, 0, 0.119),
+        0 10px 33px rgba(0, 0, 0, 0.2);
+}
+
+.info-content{
+    text-align: center;
 }
 
 .info-success{
-    background: #85DD85;
+    background: var(--color-success);
 }
 .info-success:hover{
-    background: #70b970
+    background: var(--color-success-hover);
 }
 
 .info-fail{
-    background: #dd8585
+    background: var(--color-danger);
 }
 .info-fail:hover{
-    background: #995151
+    background: var(--color-danger-hover);
 }
 
 .icon{
+    padding: 0 10px;
+    color: var(--color-dark-background);
 }
 
 .fail-icon{
@@ -34,9 +45,4 @@
 
 .success-icon{
     color: #017a0b;
-}
-
-.card-container{
-    margin:auto;
-    padding:10px;
 }
