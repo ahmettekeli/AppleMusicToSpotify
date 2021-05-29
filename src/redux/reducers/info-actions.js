@@ -1,8 +1,8 @@
-import { LIST_CONVERSION_INFO, DELETE_INFO_LIST, ADD_CONVERSION_INFO } from "../actionTypes";
+import { LIST_INFO, DELETE_INFO_LIST, ADD_INFO, UPDATE_SONG_COUNT, ADD_SONG_INFO } from "../actionTypes";
 
 export const listConversionInfo = () => {
 	return {
-		type: LIST_CONVERSION_INFO,
+		type: LIST_INFO,
 	};
 };
 
@@ -12,9 +12,23 @@ export const deleteInfoList = () => {
 	};
 };
 
-export const addConversionInfo = (info) => {
+export const addInfo = (info) => {
 	return {
-		type: ADD_CONVERSION_INFO,
+		type: ADD_INFO,
 		payload: info,
+	};
+};
+
+export const addSongInfo = (info) => {
+	return {
+		type: ADD_SONG_INFO,
+		payload: info,
+	};
+};
+
+export const updateSongCount = (count) => {
+	return {
+		type: UPDATE_SONG_COUNT,
+		payload: count,
 	};
 };

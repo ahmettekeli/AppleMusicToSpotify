@@ -1,17 +1,14 @@
 @import "../vars.css";
 
 .info{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     align-items: center;
-    max-width: 30em;
+    width: 30em;
     height: 50vh;
     padding: 1rem;
     margin: 20px auto;
     background-color: var(--color-light-background);
-    overflow: auto;
-    border-radius: 10px;
+    overflow-y: auto;
+    border-radius: 3px;
 
     box-shadow:
         0 0.7px 2.2px rgba(0, 0, 0, 0.081),

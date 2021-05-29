@@ -9,9 +9,10 @@
     --color-warning: #ffd15cff;
     --color-warning-hover: #ffc533;
     --color-light-background: #f8e9e9ff;
-    --color-header-gradient-start: rgba(43, 200, 184, 1);
-    --color-header-gradient-end: rgba(0, 255, 186, 1);
+    --color-header-gradient-start: #2bc8b8;
+    --color-header-gradient-end: #00ffba;
     --color-navbar-menu-item-hover: #2bc8b8;
     --color-navbar-menu-active: #00ffba;
+    --color-progressbar-fill: #2bc8b8;
 
 }

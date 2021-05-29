@@ -41,7 +41,7 @@ function Convert(props) {
 		if (searchQuery) {
 			dispacth(login());
 		}
-	}, []);
+	});
 	return (
 		<div>
 			<h2>Main conversion page is here.</h2>

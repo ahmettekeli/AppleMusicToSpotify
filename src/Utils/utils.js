@@ -3,7 +3,6 @@ import queryString from "query-string";
 const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
 
 export const parseAccessToken = (searchText) => {
-	console.log({ searchText });
 	return queryString.parse(searchText).access_token;
 };
 

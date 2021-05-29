@@ -1,7 +1,7 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import store from "../redux/store";
-import { addConversionInfo } from "../redux/reducers/info-actions";
+import { addInfo, addSongInfo, updateSongCount } from "../redux/reducers/info-actions";
 import {
 	playlistsEndpoint,
 	addSongsToPlaylistEndpoint,
@@ -11,14 +11,17 @@ import {
 	encodeItem,
 } from "../Utils/spotifyUtil";
 
+//!TODO implement the option to abort conversion
+
 // const API_URL = process.env.API_URL;
 const API_URL = "http://localhost:3004/applemusic/scrap";
 export const getPlaylistDataFromAPI = async (url, requestBody) => {
 	try {
 		const response = await axios.post(url, requestBody);
-		console.log({ applePlaylistDataResponse: response });
+		console.log({ applePlaylistDataResponse: response.data });
+		store.dispatch(updateSongCount(response.data.data.length));
 		store.dispatch(
-			addConversionInfo({
+			addInfo({
 				id: uuidv4(),
 				isSuccess: true,
 				data: "Playlist data has been retrieved from Apple Music.",
@@ -29,7 +32,7 @@ export const getPlaylistDataFromAPI = async (url, requestBody) => {
 	} catch (error) {
 		console.log({ error });
 		store.dispatch(
-			addConversionInfo({
+			addInfo({
 				id: uuidv4(),
 				isSuccess: false,
 				data: "Playlist data could not be retrieved from Apple Music.",
@@ -45,7 +48,7 @@ export const getUserId = async (apiToken) => {
 			},
 		});
 		store.dispatch(
-			addConversionInfo({
+			addInfo({
 				id: uuidv4(),
 				isSuccess: true,
 				data: "User has been found on Spotify.",
@@ -55,7 +58,7 @@ export const getUserId = async (apiToken) => {
 	} catch (error) {
 		console.log({ error });
 		store.dispatch(
-			addConversionInfo({
+			addInfo({
 				id: uuidv4(),
 				isSuccess: false,
 				data: "User could not be found on Spotify.",
@@ -112,27 +115,37 @@ export const searchSong = async (song, artist, album, apiToken) => {
 			},
 		});
 		if (response.data.tracks.items[0]) {
+			console.log("song data:", response.data);
 			const songData = {
 				uri: response.data.tracks.items[0].uri,
 				name: response.data.tracks.items[0].name,
 				artist: response.data.tracks.items[0].artists[0].name,
 				album: response.data.tracks.items[0].album.name,
+				image: response.data.tracks.items[0].album.images[1].url, //0-> 600x600 1-> 300x300 2->64x64
+				url: response.data.tracks.items[0].external_urls.spotify,
 			};
 			store.dispatch(
-				addConversionInfo({
+				addSongInfo({
 					id: uuidv4(),
 					isSuccess: true,
-					data: `${songData.name} - ${songData.artist}`,
+					song: songData.name,
+					artist: songData.artist,
+					album: songData.album,
+					image: songData.image,
+					url: songData.url,
 				})
 			);
 			return songData;
 		} else {
-			console.log({ song: song, artist: artist, album, message: "Song could not be found in spotify." });
+			console.log({ song, artist, album, message: "Song could not be found in spotify." });
 			store.dispatch(
-				addConversionInfo({
+				addSongInfo({
 					id: uuidv4(),
 					isSuccess: false,
-					data: `${song} - ${artist}`,
+					song,
+					artist,
+					album,
+					image: null,
 				})
 			);
 		}
@@ -140,7 +153,7 @@ export const searchSong = async (song, artist, album, apiToken) => {
 	} catch (error) {
 		console.log({ searchError: error });
 		store.dispatch(
-			addConversionInfo({
+			addInfo({
 				id: uuidv4(),
 				isSuccess: false,
 				data: "Could not search songs on Spotify.",
@@ -186,7 +199,7 @@ export const generateSpotifyPlaylist = async (uris, userId, apiToken, args) => {
 			if (songAdditionResponse.status === 201) {
 				console.log(`Spotify playlist with the name: ${args.name} has been created.`);
 				store.dispatch(
-					addConversionInfo({
+					addInfo({
 						id: uuidv4(),
 						isSuccess: true,
 						data: `Playlist with the name: ${args.name} has been created.`,
@@ -205,20 +218,19 @@ export const convertPlaylist = (userId, apiToken, args) => {
 			getSongUris(response.data, apiToken).then((songUris) => {
 				console.log(`${songUris.length} songs has been found on Spotify.`);
 				store.dispatch(
-					addConversionInfo({
+					addInfo({
 						id: uuidv4(),
 						isSuccess: true,
 						data: `${songUris.length} songs has been found on Spotify.`,
 					})
 				);
-				generateSpotifyPlaylist(songUris, userId, apiToken, {
-					name: args.name,
-					description: args.description,
-				});
+				if (songUris.length > 0) {
+					generateSpotifyPlaylist(songUris, userId, apiToken, {
+						name: args.name,
+						description: args.description,
+					});
+				}
 			});
-			setTimeout(() => {
-				console.log("final state:", store.getState());
-			}, 5000);
 		})
 		.catch((error) => {
 			console.log({ convertPlaylistError: error });

@@ -1,25 +1,34 @@
 import React from "react";
-import "./InfoCard.css";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import { colors } from "../Utils/variables";
 
-const InfoCard = (props) => createCard(props),
-	createCard = (props) => {
-		let cardClass = "info-card";
-		let cardIcon = <i className="fa fa-check-circle" aria-hidden="true"></i>;
-		if (props.isSuccess) {
-			cardClass += " info-success";
-		} else {
-			cardClass += " info-fail";
-			cardIcon = <i className="fa fa-times-circle" aria-hidden="true"></i>;
-		}
+const useStyles = makeStyles({
+	root: {
+		margin: "5px 0",
+		width: "25vw",
+	},
+});
 
-		return (
-			<div className={cardClass}>
-				<div className="icon">{cardIcon}</div>
-				<div className="info-content">
-					<p>{props.data}</p>
-				</div>
-			</div>
-		);
-	};
+function InfoCard(props) {
+	const classes = useStyles(),
+		getCardBgcolor = (isSuccess) => {
+			if (isSuccess) {
+				return colors.success;
+			}
+			return colors.danger;
+		};
+	return (
+		<Card className={classes.root} style={{ backgroundColor: getCardBgcolor(props.isSuccess) }}>
+			<CardContent>
+				<Typography color="textSecondary" component="h5" variant="h5">
+					{props.data}
+				</Typography>
+			</CardContent>
+		</Card>
+	);
+}
 
 export default InfoCard;

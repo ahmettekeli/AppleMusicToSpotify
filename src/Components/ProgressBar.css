@@ -1,0 +1,31 @@
+@import "../vars.css";
+.container {
+    margin: 100px auto;
+    width: 500px;
+    text-align: center;
+}
+
+.progress {
+    padding: 3px;
+    background: var(--color-light-background);  
+}
+
+.progress-bar {
+    height: 20px;
+    /* border-radius: 10px; */
+    background-image: 
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    transition: 0.4s linear;  
+    transition-property: width, background-color;    
+}
+
+.progress-moved .progress-bar {
+    width: 0%; 
+    background-color: var(--color-progressbar-fill);  
+    /* animation: progressAnimation 6s; */
+}
+
+@keyframes progressAnimation {
+    0%   { width: 0%; background-color: #F9BCCA;}
+    100% { width: 100%; background-color: #EF476F; }
+}
