@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import CardContainer from "./CardContainer";
-import ProgressBar from "./ProgressBar";
+import ProgressContainer from "./ProgressContainer";
 import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService";
 import { validateUrl } from "../Utils/utils";
 import { parseAccessToken } from "../Utils/utils";
@@ -110,7 +110,7 @@ function ConversionForm(props) {
 					overlayClassName="conversion-form-overlay"
 					closeTimeoutMS={500}
 				>
-					<ProgressBar />
+					<ProgressContainer />
 					<CardContainer />
 					<button onClick={toggleModal}>Close</button>
 				</Modal>

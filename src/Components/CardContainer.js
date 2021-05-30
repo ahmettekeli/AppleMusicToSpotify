@@ -7,7 +7,6 @@ import InfoCard from "./InfoCard";
 //!TODO change name..
 
 const CardContainer = (props) => {
-	console.log(props);
 	const handleCards = (props) => {
 			return (
 				<>
@@ -22,7 +21,6 @@ const CardContainer = (props) => {
 			}
 		},
 		handleSongCards = (songCards) => {
-			console.log({ songCards });
 			if (songCards) {
 				return songCards.map((info) => (
 					<SongCard

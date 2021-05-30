@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SongCard = (props) => {
-	console.log("songcard props", props);
 	const classes = useStyles(),
 		getCardBgcolor = (isSuccess) => {
 			if (isSuccess) {
@@ -46,7 +45,6 @@ const SongCard = (props) => {
 			return colors.danger;
 		},
 		handlePlay = (songUrl) => {
-			console.log({ songUrl });
 			window.open(songUrl, "_blank");
 		};
 
