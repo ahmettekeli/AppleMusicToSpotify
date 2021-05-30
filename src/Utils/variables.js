@@ -8,7 +8,7 @@ export const colors = {
 	dangerHover: "#ed6b5a",
 	warning: "#fd15cff",
 	warningHover: "#ffc533",
-	lightBackground: "8e9e9ff",
+	lightBackground: "#F7E8E8",
 	headerGradientStart: "#2bc8b8",
 	headerGradientEnd: "#00ffba",
 	navbarMenuActive: "#00ffba",

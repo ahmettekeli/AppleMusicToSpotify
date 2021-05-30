@@ -45,9 +45,9 @@ function ProgressCircle(props) {
 					{...props}
 				/>
 				<Box className={classes.innerBox}>
-					<Typography variant="caption" component="div" color="textSecondary">{`${parseInt(
-						props.value
-					)}%`}</Typography>
+					<Typography variant="caption" component="div" color="textSecondary">
+						{props.value !== 0 ? `${parseInt(props.value)}%` : null}
+					</Typography>
 				</Box>
 			</Box>
 		</div>

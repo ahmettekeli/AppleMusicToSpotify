@@ -1,21 +1,57 @@
 import React, { useState } from "react";
-import Modal from "react-modal";
+// import Modal from "react-modal";
 import CardContainer from "./CardContainer";
 import ProgressContainer from "./ProgressContainer";
 import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService";
 import { validateUrl } from "../Utils/utils";
 import { parseAccessToken } from "../Utils/utils";
 import InputField from "./InputField";
-import "./ConversionForm.css";
+// import "./ConversionForm.css";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
 import { colors } from "../Utils/variables";
+
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+
+const useStyles = makeStyles((theme) => ({
+	modal: {
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+	},
+	paper: {
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3),
+		borderRadius: "10px",
+	},
+	submit: {
+		backgroundColor: colors.success,
+		marginTop: theme.spacing(2),
+	},
+	formContainer: {
+		backgroundColor: colors.lightBackground,
+		display: "flex",
+		flexDirection: "column",
+		width: "60%",
+		background: "#fff",
+		overflow: "auto",
+		borderRadius: "4px",
+		outline: "none",
+		padding: theme.spacing(1),
+		margin: theme.spacing(1),
+	},
+}));
 
 function ConversionForm(props) {
 	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
 		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
 		[spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState(""),
-		[isModalOpen, setIsModalOpen] = useState(false);
+		[isModalOpen, setIsModalOpen] = useState(false),
+		classes = useStyles();
 
 	const inputFields = [
 		{
@@ -46,7 +82,7 @@ function ConversionForm(props) {
 
 	const handleConversion = async (e) => {
 			e.preventDefault();
-			setIsModalOpen(true);
+			handleModalOpen();
 			//show modal
 			//clear previous inforcards
 			//clear progress bar status.
@@ -82,19 +118,23 @@ function ConversionForm(props) {
 				/>
 			));
 		},
-		toggleModal = () => {
-			setIsModalOpen(!isModalOpen);
+		handleModalOpen = () => {
+			setIsModalOpen(true);
+		},
+		handleModalClose = () => {
+			setIsModalOpen(false);
 		};
 	return (
 		<>
-			<div className="form-container">
+			{/* <div className="form-container"> */}
+			<div className={classes.formContainer}>
 				<form>
 					{createInputGroup()}
 					<Button
 						variant="contained"
 						startIcon={<LoopIcon />}
 						onClick={handleConversion}
-						style={{ backgroundColor: colors.success }}
+						className={classes.submit}
 					>
 						Convert
 					</Button>
@@ -102,17 +142,23 @@ function ConversionForm(props) {
 			</div>
 			<div>
 				<Modal
-					isOpen={isModalOpen}
-					onRequestClose={toggleModal}
-					appElement={document.getElementById("root")}
-					contentLabel="Coversion Info Modal"
-					className="conversion-form"
-					overlayClassName="conversion-form-overlay"
-					closeTimeoutMS={500}
+					aria-labelledby="transition-modal-title"
+					aria-describedby="transition-modal-description"
+					className={classes.modal}
+					open={isModalOpen}
+					onClose={handleModalClose}
+					closeAfterTransition
+					BackdropComponent={Backdrop}
+					BackdropProps={{
+						timeout: 500,
+					}}
 				>
-					<ProgressContainer />
-					<CardContainer />
-					<button onClick={toggleModal}>Close</button>
+					<Fade in={isModalOpen}>
+						<div className={classes.paper}>
+							<ProgressContainer />
+							<CardContainer />
+						</div>
+					</Fade>
 				</Modal>
 			</div>
 		</>
