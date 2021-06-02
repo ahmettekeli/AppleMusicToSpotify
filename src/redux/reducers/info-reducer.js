@@ -1,34 +1,8 @@
-import { LIST_INFO, DELETE_INFO_LIST, ADD_INFO, UPDATE_SONG_COUNT, ADD_SONG_INFO } from "../actionTypes";
+import { UPDATE_LOG, UPDATE_SONG_COUNT, ADD_SONG_INFO } from "../actionTypes";
 
 const initialState = {
-	infoList: [
-		// {
-		// 	id: 1,
-		// 	isSuccess: true,
-		// 	data: "Spotify login is successful",
-		// },
-		// {
-		// 	id: 2,
-		// 	isSuccess: false,
-		// 	data: "Playlist already exists.",
-		// },
-		// {
-		// 	id: 3,
-		// 	isSuccess: true,
-		// 	data: "Some success message.",
-		// },
-		// {
-		// 	id: 4,
-		// 	isSuccess: true,
-		// 	data: "Some success message.",
-		// },
-		// {
-		// 	id: 5,
-		// 	isSuccess: true,
-		// 	data: "Some success message.",
-		// },
-	],
-	songInfoList: [
+	conversionLog: null,
+	conversionInfo: [
 		// {
 		// 	id: 1,
 		// 	isSuccess: true,
@@ -63,20 +37,10 @@ const initialState = {
 //Apply redux thunk here for async operations
 const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case LIST_INFO:
+		case UPDATE_LOG:
 			return {
 				...state,
-				infoList: action.payload.infoList,
-			};
-		case ADD_INFO:
-			return {
-				...state,
-				infoList: [...state.infoList, action.payload],
-			};
-		case DELETE_INFO_LIST:
-			return {
-				...state,
-				infoList: [],
+				conversionLog: action.payload,
 			};
 		case UPDATE_SONG_COUNT:
 			return {
@@ -86,7 +50,7 @@ const reducer = (state = initialState, action) => {
 		case ADD_SONG_INFO:
 			return {
 				...state,
-				songInfoList: [...state.songInfoList, action.payload],
+				conversionInfo: [...state.conversionInfo, action.payload],
 			};
 		default:
 			return state;

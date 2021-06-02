@@ -1,7 +1,7 @@
 import axios from "axios";
 import { v4 as uuidv4 } from "uuid";
 import store from "../redux/store";
-import { addInfo, addSongInfo, updateSongCount } from "../redux/reducers/info-actions";
+import { updateLog, addSongInfo, updateSongCount } from "../redux/reducers/info-actions";
 import {
 	playlistsEndpoint,
 	addSongsToPlaylistEndpoint,
@@ -20,24 +20,12 @@ export const getPlaylistDataFromAPI = async (url, requestBody) => {
 		const response = await axios.post(url, requestBody);
 		console.log({ applePlaylistDataResponse: response.data });
 		store.dispatch(updateSongCount(response.data.data.length));
-		store.dispatch(
-			addInfo({
-				id: uuidv4(),
-				isSuccess: true,
-				data: "Playlist data has been retrieved from Apple Music.",
-			})
-		);
+		store.dispatch(updateLog("Playlist data has been retrieved from Apple Music."));
 		console.log({ state: store.getState() });
 		return response.data;
 	} catch (error) {
 		console.log({ error });
-		store.dispatch(
-			addInfo({
-				id: uuidv4(),
-				isSuccess: false,
-				data: "Playlist data could not be retrieved from Apple Music.",
-			})
-		);
+		store.dispatch(updateLog("Playlist data could not be retrieved from Apple Music."));
 	}
 };
 export const getUserId = async (apiToken) => {
@@ -47,23 +35,11 @@ export const getUserId = async (apiToken) => {
 				Authorization: `Bearer ${apiToken}`,
 			},
 		});
-		store.dispatch(
-			addInfo({
-				id: uuidv4(),
-				isSuccess: true,
-				data: "User has been found on Spotify.",
-			})
-		);
+		store.dispatch(updateLog("User has been found on Spotify."));
 		return response.data.id;
 	} catch (error) {
 		console.log({ error });
-		store.dispatch(
-			addInfo({
-				id: uuidv4(),
-				isSuccess: false,
-				data: "User could not be found on Spotify.",
-			})
-		);
+		store.dispatch(updateLog("User could not be found on Spotify."));
 	}
 };
 export const createPlaylist = async (name, description, isPublic, userId, apiToken) => {
@@ -152,13 +128,7 @@ export const searchSong = async (song, artist, album, apiToken) => {
 		return null;
 	} catch (error) {
 		console.log({ searchError: error });
-		store.dispatch(
-			addInfo({
-				id: uuidv4(),
-				isSuccess: false,
-				data: "Could not search songs on Spotify.",
-			})
-		);
+		store.dispatch(updateLog("Could not search songs on Spotify."));
 	}
 };
 export const getSongUris = async (songs, apiToken) => {
@@ -198,13 +168,7 @@ export const generateSpotifyPlaylist = async (uris, userId, apiToken, args) => {
 				songAdditionResponse = await addSongsToPlaylist(uris, playListData.id, apiToken);
 			if (songAdditionResponse.status === 201) {
 				console.log(`Spotify playlist with the name: ${args.name} has been created.`);
-				store.dispatch(
-					addInfo({
-						id: uuidv4(),
-						isSuccess: true,
-						data: `Playlist with the name: ${args.name} has been created.`,
-					})
-				);
+				store.dispatch(updateLog(`Playlist with the name: ${args.name} has been created.`));
 			}
 		}
 	} catch (error) {
@@ -217,13 +181,7 @@ export const convertPlaylist = (userId, apiToken, args) => {
 		.then((response) => {
 			getSongUris(response.data, apiToken).then((songUris) => {
 				console.log(`${songUris.length} songs has been found on Spotify.`);
-				store.dispatch(
-					addInfo({
-						id: uuidv4(),
-						isSuccess: true,
-						data: `${songUris.length} songs has been found on Spotify.`,
-					})
-				);
+				store.dispatch(updateLog(`${songUris.length} songs has been found on Spotify.`));
 				if (songUris.length > 0) {
 					generateSpotifyPlaylist(songUris, userId, apiToken, {
 						name: args.name,

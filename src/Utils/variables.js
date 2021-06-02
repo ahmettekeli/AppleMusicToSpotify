@@ -1,5 +1,5 @@
 export const colors = {
-	darkBackground: "#5d707fff",
+	darkBackground: "#50514F",
 	submit: "#cdfd6ff",
 	submitHover: "#60d2c5",
 	success: "#44EE96",
@@ -8,7 +8,7 @@ export const colors = {
 	dangerHover: "#ed6b5a",
 	warning: "#fd15cff",
 	warningHover: "#ffc533",
-	lightBackground: "#F7E8E8",
+	lightBackground: "#E5F2C9",
 	headerGradientStart: "#2bc8b8",
 	headerGradientEnd: "#00ffba",
 	navbarMenuActive: "#00ffba",
@@ -16,6 +16,14 @@ export const colors = {
 	inputFieldFocused: "#2bc8b8",
 };
 
-export const imageUrls = {
-	songPlaceHolder: "https://picsum.photos/seed/picsum/150/150",
+export const urls = {
+	internal: {
+		home: "/",
+		convert: "convert",
+		login: "/login",
+	},
+	songCardPlaceHolder: "https://picsum.photos/seed/picsum/150/150",
+	twitter: "https://twitter.com/ahmettekeli3",
+	linkedin: "https://www.linkedin.com/in/tekeliahmet/",
+	github: "https://github.com/ahmettekeli",
 };

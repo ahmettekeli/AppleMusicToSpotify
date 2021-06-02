@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import { makeStyles } from "@material-ui/core";
-import { colors, imageUrls } from "../Utils/variables";
+import { colors, urls } from "../Utils/variables";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -52,7 +52,7 @@ const SongCard = (props) => {
 		<Card className={classes.root} style={{ backgroundColor: getCardBgcolor(props.isSuccess) }}>
 			<CardMedia
 				className={classes.cover}
-				image={props.image || imageUrls.songPlaceHolder}
+				image={props.image || urls.songCardPlaceHolder}
 				title={`${props.album} cover`}
 			/>
 			<div className={classes.details}>
@@ -65,14 +65,16 @@ const SongCard = (props) => {
 					</Typography>
 				</CardContent>
 				<div className={classes.interactions}>
-					<IconButton
-						aria-label="share"
-						onClick={() => {
-							handlePlay(props.url);
-						}}
-					>
-						<PlayArrowIcon className={classes.playIcon} />
-					</IconButton>
+					{props.isSuccess ? (
+						<IconButton
+							aria-label="play"
+							onClick={() => {
+								handlePlay(props.url);
+							}}
+						>
+							<PlayArrowIcon className={classes.playIcon} />
+						</IconButton>
+					) : null}
 				</div>
 			</div>
 		</Card>

@@ -1,20 +1,8 @@
-import { LIST_INFO, DELETE_INFO_LIST, ADD_INFO, UPDATE_SONG_COUNT, ADD_SONG_INFO } from "../actionTypes";
+import { UPDATE_LOG, UPDATE_SONG_COUNT, ADD_SONG_INFO } from "../actionTypes";
 
-export const listConversionInfo = () => {
+export const updateLog = (info) => {
 	return {
-		type: LIST_INFO,
-	};
-};
-
-export const deleteInfoList = () => {
-	return {
-		type: DELETE_INFO_LIST,
-	};
-};
-
-export const addInfo = (info) => {
-	return {
-		type: ADD_INFO,
+		type: UPDATE_LOG,
 		payload: info,
 	};
 };

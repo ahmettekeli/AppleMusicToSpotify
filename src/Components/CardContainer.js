@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core";
 import SongCard from "./SongCard";
-import InfoCard from "./InfoCard";
 import { colors } from "../Utils/variables";
 
 const useStyles = makeStyles({
@@ -22,43 +21,29 @@ const useStyles = makeStyles({
 
 const CardContainer = (props) => {
 	const classes = useStyles();
-	const handleCards = (props) => {
-			return (
-				<>
-					{handleInfoCards(props.infoList)}
-					{handleSongCards(props.songInfoList)}
-				</>
-			);
-		},
-		handleInfoCards = (infoCards) => {
-			if (infoCards) {
-				return infoCards.map((info) => <InfoCard key={info.id} isSuccess={info.isSuccess} data={info.data} />);
-			}
-		},
-		handleSongCards = (songCards) => {
-			if (songCards) {
-				return songCards.map((info) => (
-					<SongCard
-						key={info.id}
-						isSuccess={info.isSuccess}
-						song={info.song}
-						artist={info.artist}
-						album={info.album}
-						image={info.image}
-						url={info.url}
-					/>
-				));
-			}
-			return null;
-		};
+	const handleSongCards = (songCards) => {
+		if (songCards) {
+			return songCards.map((info) => (
+				<SongCard
+					key={info.id}
+					isSuccess={info.isSuccess}
+					song={info.song}
+					artist={info.artist}
+					album={info.album}
+					image={info.image}
+					url={info.url}
+				/>
+			));
+		}
+		return null;
+	};
 
-	return <div className={classes.cardContainer}>{handleCards(props)}</div>;
+	return <div className={classes.cardContainer}>{handleSongCards(props.conversionInfo)}</div>;
 };
 
 const mapStateToProps = (state) => {
 	return {
-		infoList: state.info.infoList,
-		songInfoList: state.info.songInfoList,
+		conversionInfo: state.info.conversionInfo,
 	};
 };
 export default connect(mapStateToProps)(CardContainer);
