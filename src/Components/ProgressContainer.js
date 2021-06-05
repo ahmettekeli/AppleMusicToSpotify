@@ -5,16 +5,16 @@ import ProgressCircle from "./ProgressCircle";
 
 function ProgressContainer(props) {
 	const [progress, setProgress] = useState(0),
-		handleConversionProgress = (songInfoList, songCount) => {
-			if (songInfoList && songInfoList.length > 0) {
-				return (songInfoList.length * 100) / songCount;
+		handleConversionProgress = () => {
+			if (props.conversionInfo && props.conversionInfo.length > 0) {
+				return (props.conversionInfo.length * 100) / props.songCount;
 			}
 			return 0;
 			//!TODO handle what to do with progressbar when conversion fails
 			//!TODO handle conversion abortion.
 		};
 	useEffect(() => {
-		setProgress(handleConversionProgress(props.conversionInfo, props.songCount));
+		setProgress(handleConversionProgress());
 	}, [props.conversionInfo]);
 	return <ProgressCircle value={progress} />;
 }

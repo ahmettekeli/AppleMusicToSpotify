@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Typography from "@material-ui/core/Typography";
+import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import FileCopyIcon from "@material-ui/icons/FileCopy";
+import SearchIcon from "@material-ui/icons/Search";
 import { makeStyles } from "@material-ui/core";
 import { colors, urls } from "../Utils/variables";
 
@@ -39,18 +42,40 @@ const useStyles = makeStyles((theme) => ({
 		height: 40,
 		width: 40,
 	},
+	copyIcon: {
+		height: 35,
+		width: 35,
+	},
+	playIcon: {
+		height: 40,
+		width: 40,
+	},
 }));
 
 const SongCard = (props) => {
-	const classes = useStyles(),
+	const [isSnackBarOpen, setIsSnackBarOpen] = useState(false),
+		classes = useStyles(),
 		getCardBgcolor = (isSuccess) => {
 			if (isSuccess) {
 				return colors.success;
 			}
 			return colors.danger;
 		},
+		handleSnackBarOpen = () => {
+			setIsSnackBarOpen(true);
+		},
+		handleSnackBarClose = () => {
+			setIsSnackBarOpen(false);
+		},
 		handlePlay = (songUrl) => {
 			window.open(songUrl, "_blank");
+		},
+		handleCopyToClipboard = (songUrl) => {
+			navigator.clipboard.writeText(songUrl);
+			handleSnackBarOpen();
+		},
+		handleSearch = (song, artist) => {
+			//!TODO where to search the song? google?
 		};
 
 	return (
@@ -71,17 +96,44 @@ const SongCard = (props) => {
 				</CardContent>
 				<div className={classes.interactions}>
 					{props.isSuccess ? (
+						<>
+							<IconButton
+								aria-label="play"
+								onClick={() => {
+									handleCopyToClipboard(props.url);
+								}}
+							>
+								<FileCopyIcon className={classes.copyIcon} />
+							</IconButton>
+							<IconButton
+								aria-label="play"
+								onClick={() => {
+									handlePlay(props.url);
+								}}
+							>
+								<PlayArrowIcon className={classes.playIcon} />
+							</IconButton>
+						</>
+					) : (
 						<IconButton
 							aria-label="play"
 							onClick={() => {
-								handlePlay(props.url);
+								handleSearch(props.song);
 							}}
 						>
-							<PlayArrowIcon className={classes.playIcon} />
+							<SearchIcon className={classes.searchIcon} />
 						</IconButton>
-					) : null}
+					)}
 				</div>
 			</div>
+			<Snackbar
+				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+				open={isSnackBarOpen}
+				onClose={handleSnackBarClose}
+				message="Song url is copied to the clipboard."
+				key={1}
+				autoHideDuration={2500}
+			/>
 		</Card>
 	);
 };

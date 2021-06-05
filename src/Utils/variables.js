@@ -22,7 +22,7 @@ export const urls = {
 		convert: "convert",
 		login: "/login",
 	},
-	songCardPlaceHolder: "",
+	songCardPlaceHolder: "https://i.ibb.co/2sbPkZD/image-not-found.png",
 	twitter: "https://twitter.com/ahmettekeli3",
 	linkedin: "https://www.linkedin.com/in/tekeliahmet/",
 	github: "https://github.com/ahmettekeli",
