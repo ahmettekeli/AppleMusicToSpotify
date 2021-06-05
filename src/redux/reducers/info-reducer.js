@@ -1,4 +1,4 @@
-import { UPDATE_LOG, UPDATE_SONG_COUNT, ADD_SONG_INFO } from "../actionTypes";
+import { UPDATE_LOG, UPDATE_SONG_COUNT, ADD_SONG_INFO, CLEAR_SONG_INFOS } from "../actionTypes";
 
 const initialState = {
 	conversionLog: null,
@@ -51,6 +51,13 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				conversionInfo: [...state.conversionInfo, action.payload],
+			};
+		case CLEAR_SONG_INFOS:
+			return {
+				...state,
+				songCount: 0,
+				conversionInfo: [],
+				conversionLog: "",
 			};
 		default:
 			return state;

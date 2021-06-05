@@ -1,14 +1,16 @@
 import React, { useState } from "react";
+import store from "../redux/store";
+import { clearSongInfos } from "../redux/reducers/info-actions";
 import CardContainer from "./CardContainer";
 import ProgressContainer from "./ProgressContainer";
 import ConversionLogField from "./ConversionLogField";
 import InputField from "./InputField";
-import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
+import { makeStyles } from "@material-ui/core/styles";
 import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService";
 import { validateUrl } from "../Utils/utils";
 import { parseAccessToken } from "../Utils/utils";
@@ -81,10 +83,8 @@ function ConversionForm(props) {
 
 	const handleConversion = async (e) => {
 			e.preventDefault();
+			store.dispatch(clearSongInfos());
 			handleModalOpen();
-			//show modal
-			//clear previous inforcards
-			//clear progress bar status.
 			if (validateUrl(appleMusicPlaylistUrl)) {
 				const params = {
 					url: appleMusicPlaylistUrl,
@@ -93,8 +93,6 @@ function ConversionForm(props) {
 				};
 				const apiToken = parseAccessToken(props.query);
 				const userId = await getUserId(apiToken);
-				//resetting progressbar here.
-				// store.dispatch(updateSongCount(0));
 				setIsModalOpen(true);
 				convertPlaylist(userId, apiToken, params);
 			} else {

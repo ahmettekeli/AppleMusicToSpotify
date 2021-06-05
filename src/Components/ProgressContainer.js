@@ -5,30 +5,30 @@ import ProgressCircle from "./ProgressCircle";
 
 function ProgressContainer(props) {
 	const [progress, setProgress] = useState(0),
-		handleConversionProgress = () => {
-			if (props.songInfoList && props.songInfoList.length > 0) {
-				return (props.songInfoList.length * 100) / props.songCount;
+		handleConversionProgress = (songInfoList, songCount) => {
+			if (songInfoList && songInfoList.length > 0) {
+				return (songInfoList.length * 100) / songCount;
 			}
 			return 0;
 			//!TODO handle what to do with progressbar when conversion fails
 			//!TODO handle conversion abortion.
 		};
 	useEffect(() => {
-		setProgress(handleConversionProgress());
-	}, [props.songInfoList]);
+		setProgress(handleConversionProgress(props.conversionInfo, props.songCount));
+	}, [props.conversionInfo]);
 	return <ProgressCircle value={progress} />;
 }
 
 ProgressContainer.propTypes = {
 	infoList: PropTypes.array,
-	songInfoList: PropTypes.array,
+	conversionInfo: PropTypes.array,
 	songCount: PropTypes.number,
 };
 
 const mapStateToProps = (state) => {
 	return {
 		infoList: state.info.infoList,
-		songInfoList: state.info.songInfoList,
+		conversionInfo: state.info.conversionInfo,
 		songCount: state.info.songCount,
 	};
 };

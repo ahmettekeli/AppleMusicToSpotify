@@ -32,7 +32,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProgressCircle(props) {
-	console.log(props);
 	const classes = useStyles(),
 		circleSize = 75;
 	return (

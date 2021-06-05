@@ -21,7 +21,6 @@ export const getPlaylistDataFromAPI = async (url, requestBody) => {
 		console.log({ applePlaylistDataResponse: response.data });
 		store.dispatch(updateSongCount(response.data.data.length));
 		store.dispatch(updateLog("Playlist data has been retrieved from Apple Music."));
-		console.log({ state: store.getState() });
 		return response.data;
 	} catch (error) {
 		console.log({ error });
@@ -91,7 +90,6 @@ export const searchSong = async (song, artist, album, apiToken) => {
 			},
 		});
 		if (response.data.tracks.items[0]) {
-			console.log("song data:", response.data);
 			const songData = {
 				uri: response.data.tracks.items[0].uri,
 				name: response.data.tracks.items[0].name,

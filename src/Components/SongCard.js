@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: 0,
 	},
 	cover: {
-		width: 150,
+		width: "13vw",
 	},
 	interactions: {
 		display: "flex",
