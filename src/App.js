@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Convert from "./pages/Convert";
 import { makeStyles } from "@material-ui/core";
 // import AppleMusicToSpotify from "./pages/AppleMusicToSpotify";
+import { colors } from "./Utils/variables";
 import "./App.css";
 
 const useStyles = makeStyles({
@@ -13,6 +14,7 @@ const useStyles = makeStyles({
 		display: "flex",
 		flexDirection: "column",
 		justifyContent: "space-between",
+		backgroundColor: colors.lightBackground,
 	},
 	content: {
 		minHeight: "80vh",

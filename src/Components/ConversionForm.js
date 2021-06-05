@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	formContainer: {
 		backgroundColor: colors.lightBackground,
+		// backgroundColor: "white",
 		display: "flex",
 		flexDirection: "column",
 		width: "60%",

@@ -11,6 +11,7 @@ import { colors, urls } from "../Utils/variables";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: "flex",
+		height: "25%",
 		marginBottom: theme.spacing(1),
 	},
 	details: {
@@ -19,7 +20,10 @@ const useStyles = makeStyles((theme) => ({
 		width: "25vw",
 	},
 	content: {
-		flex: "1 0 auto",
+		width: "50vw",
+		display: "flex",
+		flexDirection: "column",
+		paddingBottom: 0,
 	},
 	cover: {
 		width: 150,
@@ -27,12 +31,13 @@ const useStyles = makeStyles((theme) => ({
 	interactions: {
 		display: "flex",
 		alignItems: "center",
+		margin: 0,
 		paddingLeft: theme.spacing(1),
 		paddingBottom: theme.spacing(1),
 	},
 	playIcon: {
-		height: 38,
-		width: 38,
+		height: 40,
+		width: 40,
 	},
 }));
 
@@ -57,7 +62,7 @@ const SongCard = (props) => {
 			/>
 			<div className={classes.details}>
 				<CardContent className={classes.content}>
-					<Typography component="h5" variant="h5">
+					<Typography component="h6" variant="h6" noWrap>
 						{props.song}
 					</Typography>
 					<Typography variant="subtitle1" color="textSecondary">

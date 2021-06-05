@@ -8,7 +8,7 @@ const useStyles = makeStyles({
 	content: {
 		display: "flex",
 		justifyContent: "center",
-		color: colors.warningHover,
+		color: colors.warning,
 	},
 });
 
