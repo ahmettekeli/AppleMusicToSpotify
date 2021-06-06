@@ -1,13 +1,13 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Navbar from "./Components/Navbar/Navbar";
+import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Login from "./pages/Login";
 import Convert from "./pages/Convert";
 import { makeStyles } from "@material-ui/core";
-// import AppleMusicToSpotify from "./pages/AppleMusicToSpotify";
 import { colors } from "./Utils/variables";
 import "./App.css";
+import "./Services/localizationService";
 
 const useStyles = makeStyles({
 	container: {
@@ -26,7 +26,7 @@ function App() {
 	return (
 		<div className={classes.container}>
 			<div className={classes.content}>
-				<Navbar />
+				<Header />
 				<br />
 				<Switch>
 					<Route path="/login">
@@ -36,14 +36,10 @@ function App() {
 						{/** Show if logged in. Double check */}
 						<Convert />
 					</Route>
-					{/* <Route path="/applemusic-spotify">
-					<AppleMusicToSpotify />
-				</Route> */}
 				</Switch>
 			</div>
 			<Footer />
 		</div>
 	);
 }
-
 export default App;

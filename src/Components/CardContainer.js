@@ -43,7 +43,7 @@ const CardContainer = (props) => {
 };
 
 CardContainer.propTypes = {
-	conversionInfo: PropTypes.string,
+	conversionInfo: PropTypes.array,
 };
 
 const mapStateToProps = (state) => {

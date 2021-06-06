@@ -33,7 +33,6 @@ function InputField(props) {
 	);
 }
 
-//!TODO implement proptypes.
 InputField.propTypes = {
 	label: PropTypes.string,
 	value: PropTypes.string,

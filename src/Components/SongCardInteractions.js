@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useTranslation } from "react-i18next";
 import Snackbar from "@material-ui/core/Snackbar";
+import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import FileCopyIcon from "@material-ui/icons/FileCopy";
@@ -31,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SongCardInteractions(props) {
 	const [isSnackBarOpen, setIsSnackBarOpen] = useState(false),
+		{ t } = useTranslation(),
 		classes = useStyles(),
 		handleSnackBarOpen = () => {
 			setIsSnackBarOpen(true);
@@ -52,38 +55,44 @@ function SongCardInteractions(props) {
 		<div className={classes.interactions}>
 			{props.isSuccess ? (
 				<>
-					<IconButton
-						aria-label="play"
-						onClick={() => {
-							handleCopyToClipboard(props.url);
-						}}
-					>
-						<FileCopyIcon className={classes.copyIcon} />
-					</IconButton>
-					<IconButton
-						aria-label="play"
-						onClick={() => {
-							handlePlay(props.url);
-						}}
-					>
-						<PlayArrowIcon className={classes.playIcon} />
-					</IconButton>
+					<Tooltip title={t("copy")} enterDelay={700} leaveDelay={200} arrow>
+						<IconButton
+							aria-label="copy"
+							onClick={() => {
+								handleCopyToClipboard(props.url);
+							}}
+						>
+							<FileCopyIcon className={classes.copyIcon} />
+						</IconButton>
+					</Tooltip>
+					<Tooltip title={t("play")} enterDelay={700} leaveDelay={200} arrow>
+						<IconButton
+							aria-label="play"
+							onClick={() => {
+								handlePlay(props.url);
+							}}
+						>
+							<PlayArrowIcon className={classes.playIcon} />
+						</IconButton>
+					</Tooltip>
 				</>
 			) : (
-				<IconButton
-					aria-label="play"
-					onClick={() => {
-						handleSearch(props.song, props.artist);
-					}}
-				>
-					<SearchIcon className={classes.searchIcon} />
-				</IconButton>
+				<Tooltip title={t("search")} enterDelay={700} leaveDelay={200} arrow>
+					<IconButton
+						aria-label="search"
+						onClick={() => {
+							handleSearch(props.song, props.artist);
+						}}
+					>
+						<SearchIcon className={classes.searchIcon} />
+					</IconButton>
+				</Tooltip>
 			)}
 			<Snackbar
 				anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
 				open={isSnackBarOpen}
 				onClose={handleSnackBarClose}
-				message="Song url is copied to the clipboard."
+				message={t("copiedToClipboard")}
 				key={1}
 				autoHideDuration={2500}
 			/>

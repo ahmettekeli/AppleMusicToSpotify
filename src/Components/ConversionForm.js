@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import store from "../redux/store";
 import { clearSongInfos } from "../redux/reducers/info-actions";
+import { useTranslation } from "react-i18next";
 import CardContainer from "./CardContainer";
 import ProgressContainer from "./ProgressContainer";
 import ConversionLogField from "./ConversionLogField";
@@ -12,7 +13,7 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import LoopIcon from "@material-ui/icons/Loop";
 import { makeStyles } from "@material-ui/core/styles";
-import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService";
+import { convertPlaylist, getUserId } from "../Services/spotifyPlaylistService.js";
 import { validateUrl } from "../Utils/utils";
 import { parseAccessToken } from "../Utils/utils";
 import { colors } from "../Utils/variables";
@@ -53,6 +54,7 @@ function ConversionForm(props) {
 		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
 		[spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState(""),
 		[isModalOpen, setIsModalOpen] = useState(false),
+		{ t } = useTranslation(),
 		classes = useStyles();
 
 	const inputFields = [
@@ -124,7 +126,6 @@ function ConversionForm(props) {
 		};
 	return (
 		<>
-			{/* <div className="form-container"> */}
 			<div className={classes.formContainer}>
 				<form>
 					{createInputGroup()}
@@ -134,7 +135,7 @@ function ConversionForm(props) {
 						onClick={handleConversion}
 						className={classes.submit}
 					>
-						Convert
+						{t("convert")}
 					</Button>
 				</form>
 			</div>

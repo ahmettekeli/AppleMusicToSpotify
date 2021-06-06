@@ -27,3 +27,7 @@ export const urls = {
 	linkedin: "https://www.linkedin.com/in/tekeliahmet/",
 	github: "https://github.com/ahmettekeli",
 };
+
+export const constants = {
+	minWidth: 600,
+};
