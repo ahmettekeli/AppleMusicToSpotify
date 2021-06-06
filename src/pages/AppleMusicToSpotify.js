@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import ConversionForm from "../Components/ConversionForm";
 
 function AppleMusicToSpotify(props) {
@@ -8,5 +9,9 @@ function AppleMusicToSpotify(props) {
 		</div>
 	);
 }
+
+AppleMusicToSpotify.propTypes = {
+	query: PropTypes.string,
+};
 
 export default AppleMusicToSpotify;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import store from "../redux/store";
 import { clearSongInfos } from "../redux/reducers/info-actions";
 import CardContainer from "./CardContainer";
@@ -162,5 +163,9 @@ function ConversionForm(props) {
 		</>
 	);
 }
+
+ConversionForm.propTypes = {
+	query: PropTypes.string,
+};
 
 export default ConversionForm;

@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import SongCard from "./SongCard";
 import { colors } from "../Utils/variables";
@@ -39,6 +40,10 @@ const CardContainer = (props) => {
 	};
 
 	return <div className={classes.cardContainer}>{handleSongCards(props.conversionInfo)}</div>;
+};
+
+CardContainer.propTypes = {
+	conversionInfo: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {

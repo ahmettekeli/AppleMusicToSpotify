@@ -4,7 +4,7 @@ export const colors = {
 	submitHover: "#60d2c5",
 	success: "#59ffa0ff",
 	successHover: "#1FEA81",
-	danger: "#ef7b6cff",
+	danger: "#f24333ff",
 	dangerHover: "#ed6b5a",
 	warning: "#f24333ff",
 	warningHover: "#ffc533",
