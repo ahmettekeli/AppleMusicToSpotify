@@ -1,6 +1,6 @@
 export const playlistsEndpoint = (userId) => {
-		return `https://api.spotify.com/v1/users/${userId}/playlists`;
-	};
+	return `https://api.spotify.com/v1/users/${userId}/playlists`;
+};
 export const addSongsToPlaylistEndpoint = (playListId) => {
 	return `https://api.spotify.com/v1/playlists/${playListId}/tracks`;
 };
@@ -25,12 +25,3 @@ export const encodeItem = (item) => {
 	}
 	return encodeURIComponent(item.replace("'", ""));
 };
-
-// export default {
-// 	playlistsEndpoint,
-// 	addSongsToPlaylistEndpoint,
-// 	searchEndpoint,
-// 	findPlaylist,
-// 	userEndpoint,
-// 	encodeItem,
-// };

@@ -14,7 +14,8 @@ import {
 //!TODO implement the option to abort conversion
 
 // const API_URL = process.env.API_URL;
-const API_URL = "http://localhost:3004/applemusic/scrap";
+const API_URL = "http://localhost:3004/applemusic/scrap",
+	SPOTIFY_LOGIN_URL = "";
 export const getPlaylistDataFromAPI = async (url, requestBody) => {
 	try {
 		const response = await axios.post(url, requestBody);
@@ -191,4 +192,19 @@ export const convertPlaylist = (userId, apiToken, args) => {
 		.catch((error) => {
 			console.log({ convertPlaylistError: error });
 		});
+};
+
+export const handleTokenExpiration = (duration) => {
+	const previousDuration = window.localStorage.getItem("expirationDuration"),
+		tokenRetrieval = window.localStorage.getItem("tokenRetrieval");
+	if (!previousDuration || !tokenRetrieval) {
+		window.localStorage.setItem("expirationDuration", duration);
+		window.localStorage.setItem("tokenRetrieval", Date.now());
+	} else {
+		if (Date.now() - tokenRetrieval / 1000 >= previousDuration - 600) {
+			window.localStorage.removeItem("expirationDuration");
+			window.localStorage.removeItem("tokenRetrieval");
+			window.location.href = SPOTIFY_LOGIN_URL;
+		}
+	}
 };

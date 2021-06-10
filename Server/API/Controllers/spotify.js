@@ -40,9 +40,6 @@ const login = (req, res) => {
 					),
 				contentType: "application/x-www-form-urlencoded",
 			};
-		console.log({ state });
-		console.log({ storedState });
-		console.log({ stateKey });
 		if (state === null || state !== storedState) {
 			res.redirect(
 				"/#" +

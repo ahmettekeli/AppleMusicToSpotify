@@ -13,13 +13,16 @@ const useStyles = makeStyles({
 	header: {
 		display: "flex",
 		height: "7vh",
-		backgroundColor: colors.success,
+		backgroundColor: colors.headerBackground,
 	},
 	content: {
 		display: "flex",
 		justifyContent: "space-between",
 	},
 	logo: {},
+	icons: {
+		color: colors.lightBackground,
+	},
 	options: {
 		display: "flex",
 	},
@@ -53,10 +56,14 @@ function Header() {
 								toggleLanguageDrawer(true);
 							}}
 						>
-							<LanguageIcon />
+							<LanguageIcon className={classes.icons} />
 						</IconButton>
 						<IconButton onClick={handleThemeSwitch}>
-							{isDarkMode ? <WbSunnyIcon /> : <NightsStayIcon />}
+							{isDarkMode ? (
+								<WbSunnyIcon className={classes.icons} />
+							) : (
+								<NightsStayIcon className={classes.icons} />
+							)}
 						</IconButton>
 					</Box>
 				</Toolbar>
