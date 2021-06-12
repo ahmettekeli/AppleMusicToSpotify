@@ -30,6 +30,11 @@ const useStyles = makeStyles({
 		width: "20vh",
 		backgroundColor: colors.lightBackground,
 	},
+	flag: {
+		margin: 0,
+		padding: 0,
+		minWidth: "3vw",
+	},
 });
 function Header() {
 	const classes = useStyles(),
@@ -78,9 +83,12 @@ function Header() {
 			>
 				<List>
 					{Object.keys(languages).map((lang, index) => {
+						let FlagIcon = languages[lang].icon;
 						return (
 							<ListItem button key={lang}>
-								<ListItemIcon></ListItemIcon>
+								<ListItemIcon className={classes.flag}>
+									<FlagIcon />
+								</ListItemIcon>
 								<ListItemText
 									onClick={() => {
 										handleLanguageSelection(languages[lang]);
@@ -98,11 +106,3 @@ function Header() {
 }
 
 export default Header;
-
-// {Object.keys(languages).map((lang, index) => {
-//     return (
-//         <MenuItem key={index} value={lang}>
-//             {languages[lang].nativeName}
-//         </MenuItem>
-//     );
-// })}

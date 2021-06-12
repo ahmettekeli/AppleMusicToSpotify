@@ -1,3 +1,5 @@
+import { IconFlagTR, IconFlagDE, IconFlagUS } from "material-ui-flags";
+
 export const resources = {
 	en: {
 		translation: {
@@ -49,9 +51,34 @@ export const resources = {
 			},
 		},
 	},
+	tr: {
+		translation: {
+			home: "Anasayfa",
+			convert: "Donustur",
+			howTo: "Nasil yapilir?",
+			cancel: "Iptal",
+			login: "Giris yap",
+			copy: "Kopyala",
+			play: "Oynat",
+			share: "Paylas",
+			search: "Sarkiyi ara",
+			language: "Dil",
+			// appleMusicPlaylistUrlNotValid: "Apple music playlist url is not valid",
+			// appleMusicPlaylistDataRetrieved: "Playlist data has been retrieved from Apple Music.",
+			// appleMusicPlaylistDataRetrievingFailed: "Playlist data could not be retrieved from Apple Music.",
+			// spotifyUserFound: "User has been found on Spotify.",
+			// spotifyUserNotFound: "User could not be found on Spotify.",
+			// spotifyPlaylistCreated: "Playlist with the name: {{name}} has been created.",
+			// spotifySongNotFound: "Song could not be found in Spotify.",
+			// spotifySongSearchFail: "Could not search songs on Spotify.",
+			// spotifySongsFound: "{{count}} songs has been found on Spotify.",
+			copiedToClipboard: "Sarki yolu kopyalandi.",
+		},
+	},
 };
 
 export const languages = {
-	en: { nativeName: "English" },
-	de: { nativeName: "Deutsch" },
+	en: { nativeName: "English", icon: IconFlagUS },
+	de: { nativeName: "Deutsch", icon: IconFlagDE },
+	tr: { nativeName: "Turkce", icon: IconFlagTR },
 };

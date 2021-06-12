@@ -16,6 +16,7 @@
     "express": "^4.17.1",
     "i18next": "^20.3.1",
     "i18next-browser-languagedetector": "^6.1.1",
+    "material-ui-flags": "^1.2.4",
     "prop-types": "^15.7.2",
     "puppeteer": "^5.5.0",
     "query-string": "^6.13.8",
