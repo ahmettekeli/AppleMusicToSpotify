@@ -6,6 +6,7 @@ import { useTranslation } from "react-i18next";
 import CardContainer from "./CardContainer";
 import ProgressContainer from "./ProgressContainer";
 import ConversionLogField from "./ConversionLogField";
+import FilterSortControls from "./FilterSortControls";
 import InputField from "./InputField";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
@@ -36,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	formContainer: {
 		backgroundColor: colors.lightBackground,
-		// backgroundColor: "white",
 		display: "flex",
 		flexDirection: "column",
 		width: "60%",
@@ -103,7 +103,7 @@ function ConversionForm(props) {
 			}
 		},
 		showValidationError = () => {
-			// return <p className="validation-fail">Url is not valid.</p>;
+			//!TODO make sure there is a validation before making an api call.
 			console.log("apple music playlist url is not valid");
 		},
 		createInputGroup = () => {
@@ -156,6 +156,7 @@ function ConversionForm(props) {
 						<div className={classes.paper}>
 							<ProgressContainer />
 							<ConversionLogField />
+							<FilterSortControls />
 							<CardContainer />
 						</div>
 					</Fade>

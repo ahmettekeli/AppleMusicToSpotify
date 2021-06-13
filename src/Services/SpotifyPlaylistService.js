@@ -166,7 +166,7 @@ export const generateSpotifyPlaylist = async (uris, userId, apiToken, args) => {
 			const playListData = await retrievePlaylistDataFromSpotify(args.name, userId, apiToken),
 				songAdditionResponse = await addSongsToPlaylist(uris, playListData.id, apiToken);
 			if (songAdditionResponse.status === 201) {
-				console.log(`Spotify playlist with the name: ${args.name} has been created.`);
+				// console.log(`Spotify playlist with the name: ${args.name} has been created.`);
 				store.dispatch(updateLog(`Playlist with the name: ${args.name} has been created.`));
 			}
 		}
@@ -175,21 +175,35 @@ export const generateSpotifyPlaylist = async (uris, userId, apiToken, args) => {
 	}
 };
 //TODO modify args object.
-export const convertPlaylist = (userId, apiToken, args) => {
+export const convertPlaylist = async (userId, apiToken, args) => {
 	getPlaylistDataFromAPI(API_URL, { url: args.url })
 		.then((response) => {
+			let songCount = response.data.length;
 			getSongUris(response.data, apiToken).then((songUris) => {
-				console.log(`${songUris.length} songs has been found on Spotify.`);
-				store.dispatch(updateLog(`${songUris.length} songs has been found on Spotify.`));
 				if (songUris.length > 0) {
 					generateSpotifyPlaylist(songUris, userId, apiToken, {
 						name: args.name,
 						description: args.description,
-					});
+					})
+						.then(() => {
+							// console.log(
+							// 	`Playlist with the name: ${args.name} has been created. ${songUris.length}/${songCount} songs has been found on Spotify.`
+							// );
+							store.dispatch(
+								updateLog(
+									`Playlist with the name: ${args.name} has been created. ${songUris.length}/${songCount} songs has been found on Spotify.`
+								)
+							);
+						})
+						.catch((err) => {
+							//!TODO implement global error handling.
+							console.log(err.message);
+						});
 				}
 			});
 		})
 		.catch((error) => {
+			//!TODO implement global error handling.
 			console.log({ convertPlaylistError: error });
 		});
 };

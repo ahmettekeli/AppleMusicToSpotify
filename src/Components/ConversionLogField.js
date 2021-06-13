@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 function ConversionLogField(props) {
 	const classes = useStyles();
 	return (
-		<Typography color="textSecondary" component="h5" variant="h5" className={classes.content}>
+		<Typography color="textSecondary" component="h6" variant="h6" className={classes.content}>
 			{props.conversionLog}
 		</Typography>
 	);
