@@ -5,6 +5,7 @@ import {
 	CLEAR_SONG_INFOS,
 	SET_FILTER,
 	SET_SORTING,
+	RESET_FILTER,
 	FILTER_FAILED_CONVERSION_INFO,
 	FILTER_SUCCESSFUL_CONVERSION_INFO,
 	SORT_CONVERSION_INFO_ASCENDING,
@@ -80,5 +81,11 @@ export const setFilter = (filterType) => {
 	return {
 		type: SET_FILTER,
 		payload: filterType,
+	};
+};
+
+export const resetFilters = () => {
+	return {
+		type: RESET_FILTER,
 	};
 };

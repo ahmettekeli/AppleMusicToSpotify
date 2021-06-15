@@ -11,7 +11,7 @@ export const colors = {
 	footerBackground: "#191414",
 	progressbarFill: "#1DB954",
 	inputFieldFocused: "#2bc8b8",
-	filterActive: "59ffa0ff",
+	filterActive: "#59ffa0ff",
 	filterNotActive: "#FEBB5D",
 };
 

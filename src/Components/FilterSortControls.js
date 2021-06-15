@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import PropTypes from "prop-types";
 import {
 	filterFailedSongInfo,
 	filterSuccessfulSongInfo,
@@ -9,6 +8,7 @@ import {
 	sortSongInfoAscending,
 	setSorting,
 	setFilter,
+	resetFilters,
 } from "../redux/reducers/info-actions";
 import { makeStyles } from "@material-ui/core";
 import { colors, filterSortControls } from "../Utils/variables";
@@ -40,50 +40,38 @@ function FilterSortControls(props) {
 		},
 		handleFilteringFailedSongCards = () => {
 			setIsSuccessfulFilterActive(false);
-			if (!isFailedFilterActive) {
-				setIsFailedFilterActive(true);
-				props.dispatch(setFilter(filterSortControls.FILTER_FAILED));
-				props.dispatch(filterFailedSongInfo());
-			} else {
-				setIsFailedFilterActive(false);
-				props.dispatch(setFilter(null));
-			}
+			setIsFailedFilterActive(true);
+			props.dispatch(setFilter(filterSortControls.FILTER_FAILED));
+			props.dispatch(filterFailedSongInfo());
 		},
 		handleFilteringSuccessfulSongCards = () => {
 			setIsFailedFilterActive(false);
-			if (!isSuccessfulFilterActive) {
-				setIsSuccessfulFilterActive(true);
-				props.dispatch(setFilter(filterSortControls.FILTER_SUCCESSFUL));
-				props.dispatch(filterSuccessfulSongInfo());
-			} else {
-				setIsSuccessfulFilterActive(false);
-				props.dispatch(setFilter());
-			}
+			setIsSuccessfulFilterActive(true);
+			props.dispatch(setFilter(filterSortControls.FILTER_SUCCESSFUL));
+			props.dispatch(filterSuccessfulSongInfo());
 		},
 		handleSortingAscending = () => {
 			setIsSortedDescending(false);
-			if (!isSortedAscending) {
-				setIsSortedAscending(true);
-				props.dispatch(setSorting(filterSortControls.SORT_ASCENDING));
-				props.dispatch(sortSongInfoAscending());
-			} else {
-				setIsSortedAscending(false);
-				props.dispatch(setSorting(null));
-			}
+			setIsSortedAscending(true);
+			props.dispatch(setSorting(filterSortControls.SORT_ASCENDING));
+			props.dispatch(sortSongInfoAscending());
 		},
 		handleSortingDescending = () => {
 			setIsSortedAscending(false);
-			if (!isSortedDescending) {
-				setIsSortedDescending(true);
-				props.dispatch(setSorting(filterSortControls.SORT_DESCENDING));
-				props.dispatch(sortSongInfoDescending());
-			} else {
-				setIsSortedDescending(false);
-				props.dispatch(setSorting(null));
-			}
+			setIsSortedDescending(true);
+			props.dispatch(setSorting(filterSortControls.SORT_DESCENDING));
+			props.dispatch(sortSongInfoDescending());
+		},
+		handleResettingFilters = () => {
+			props.dispatch(setSorting(null));
+			props.dispatch(setFilter(null));
+			props.dispatch(resetFilters());
 		};
 	return (
 		<ButtonGroup variant="contained" className={classes.root} aria-label="Filter Sort Controls">
+			<Button className={classes.notActive} onClick={handleResettingFilters}>
+				Reset
+			</Button>
 			<Button
 				className={isSortedDescending ? classes.active : classes.notActive}
 				onClick={handleSortingAscending}
@@ -112,16 +100,4 @@ function FilterSortControls(props) {
 	);
 }
 
-FilterSortControls.propTypes = {
-	conversionInfo: PropTypes.array,
-};
-
-const mapStateToProps = (state) => {
-	return {
-		conversionInfo: state.info.conversionInfo,
-		failedConversionInfo: state.info.successfulConversionInfo,
-		successConversionInfo: state.info.failedConversionInfo,
-		activeFilter: state.info.activeFilter,
-	};
-};
-export default connect(mapStateToProps)(FilterSortControls);
+export default connect()(FilterSortControls);

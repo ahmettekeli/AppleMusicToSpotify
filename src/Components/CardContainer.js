@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import SongCard from "./SongCard";
-import { colors, filterSortControls } from "../Utils/variables";
+import { colors } from "../Utils/variables";
 
 const useStyles = makeStyles({
 	cardContainer: {
@@ -40,8 +40,6 @@ const CardContainer = (props) => {
 			return null;
 		},
 		handleSongCards = () => {
-			console.log("active filter:", props.activeFilter);
-			console.log("active sorting:", props.activeSorting);
 			if (props.activeFilter || props.activeSorting) {
 				return getSongCards(props.tempConversionInfo);
 			} else {
@@ -53,14 +51,11 @@ const CardContainer = (props) => {
 		setSongs(handleSongCards());
 	}, [props.tempConversionInfo, props.conversionInfo]);
 
-	// return <div className={classes.cardContainer}>{getSongCards(props.conversionInfo)}</div>;
 	return <div className={classes.cardContainer}>{songs}</div>;
 };
 
 CardContainer.propTypes = {
 	conversionInfo: PropTypes.array,
-	failedConversionInfo: PropTypes.array,
-	successfulConversionInfo: PropTypes.array,
 	tempConversionInfo: PropTypes.array,
 	activeFilter: PropTypes.string,
 	activeSorting: PropTypes.string,
@@ -69,8 +64,6 @@ CardContainer.propTypes = {
 const mapStateToProps = (state) => {
 	return {
 		conversionInfo: state.info.conversionInfo,
-		failedConversionInfo: state.info.failedConversionInfo,
-		successfulConversionInfo: state.info.successfulConversionInfo,
 		tempConversionInfo: state.info.tempConversionInfo,
 		activeFilter: state.info.activeFilter,
 		activeSorting: state.info.activeSorting,

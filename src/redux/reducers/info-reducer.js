@@ -5,6 +5,7 @@ import {
 	CLEAR_SONG_INFOS,
 	SET_FILTER,
 	SET_SORTING,
+	RESET_FILTER,
 	FILTER_FAILED_CONVERSION_INFO,
 	FILTER_SUCCESSFUL_CONVERSION_INFO,
 	SORT_CONVERSION_INFO_ASCENDING,
@@ -88,6 +89,12 @@ const reducer = (state = initialState, action) => {
 				activeSorting: action.payload ? action.payload : null,
 			};
 		}
+		case RESET_FILTER: {
+			return {
+				...state,
+				tempConversionInfo: [...state.conversionInfo],
+			};
+		}
 		case FILTER_FAILED_CONVERSION_INFO: {
 			return {
 				...state,
@@ -105,7 +112,7 @@ const reducer = (state = initialState, action) => {
 			};
 		}
 		case SORT_CONVERSION_INFO_ASCENDING: {
-			if (state.tempConversionInfo.length === 0) {
+			if ((!state.activeFilter && !state.activeSorting) || state.tempConversionInfo.length === 0) {
 				state.tempConversionInfo = [...state.conversionInfo];
 			}
 			return {
@@ -114,7 +121,7 @@ const reducer = (state = initialState, action) => {
 			};
 		}
 		case SORT_CONVERSION_INFO_DESCENDING: {
-			if (state.tempConversionInfo.length === 0) {
+			if ((!state.activeFilter && !state.activeSorting) || state.tempConversionInfo.length === 0) {
 				state.tempConversionInfo = [...state.conversionInfo];
 			}
 			return {
