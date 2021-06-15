@@ -4,10 +4,15 @@ import {
 	ADD_SONG_INFO,
 	CLEAR_SONG_INFOS,
 	SET_FILTER,
+	SET_SORTING,
 	FILTER_FAILED_CONVERSION_INFO,
 	FILTER_SUCCESSFUL_CONVERSION_INFO,
+	SORT_CONVERSION_INFO_ASCENDING,
+	SORT_CONVERSION_INFO_DESCENDING,
 	SEARCH_CONVERSION_INFO,
 } from "../actionTypes";
+
+import { filterSortControls } from "../../Utils/variables";
 
 const initialState = {
 	conversionLog: null,
@@ -40,10 +45,10 @@ const initialState = {
 		// 	vigar: "https://open.spotify.com/track/01Y7ntOQnQtfcBYQuAR4Jf?si=d651afbfdad54809",
 		// },
 	],
-	successfulConversionInfo: [],
-	failedConversionInfo: [],
+	tempConversionInfo: [],
 	songCount: 0,
 	activeFilter: null,
+	activeSorting: null,
 };
 
 //!TODO Apply redux thunk here for async operations
@@ -77,38 +82,50 @@ const reducer = (state = initialState, action) => {
 				activeFilter: action.payload ? action.payload : null,
 			};
 		}
-		case FILTER_FAILED_CONVERSION_INFO: {
-			console.log(
-				"failed conversions: ",
-				[...state.conversionInfo].filter((info) => {
-					return info.isSuccess === false;
-				})
-			);
+		case SET_SORTING: {
 			return {
 				...state,
-				failedConversionInfo: [...state.conversionInfo].filter((info) => {
+				activeSorting: action.payload ? action.payload : null,
+			};
+		}
+		case FILTER_FAILED_CONVERSION_INFO: {
+			return {
+				...state,
+				tempConversionInfo: [...state.conversionInfo].filter((info) => {
 					return info.isSuccess === false;
 				}),
 			};
 		}
 		case FILTER_SUCCESSFUL_CONVERSION_INFO: {
-			console.log(
-				"successful conversions: ",
-				[...state.conversionInfo].filter((info) => {
-					return info.isSuccess === true;
-				})
-			);
 			return {
 				...state,
-				successfulConversionInfo: [...state.conversionInfo].filter((info) => {
+				tempConversionInfo: [...state.conversionInfo].filter((info) => {
 					return info.isSuccess === true;
 				}),
+			};
+		}
+		case SORT_CONVERSION_INFO_ASCENDING: {
+			if (state.tempConversionInfo.length === 0) {
+				state.tempConversionInfo = [...state.conversionInfo];
+			}
+			return {
+				...state,
+				tempConversionInfo: [...state.tempConversionInfo].sort((a, b) => (a.song > b.song && 1) || -1),
+			};
+		}
+		case SORT_CONVERSION_INFO_DESCENDING: {
+			if (state.tempConversionInfo.length === 0) {
+				state.tempConversionInfo = [...state.conversionInfo];
+			}
+			return {
+				...state,
+				tempConversionInfo: [...state.tempConversionInfo].sort((a, b) => (a.song < b.song && 1) || -1),
 			};
 		}
 		case SEARCH_CONVERSION_INFO: {
 			let searchResult = [];
 			if (state.activeFilter) {
-				if (state.activeFilter === "success") {
+				if (state.activeFilter === filterSortControls.FILTER_SUCCESSFUL) {
 					//handle searching in success conversion info.
 					searchResult = [
 						...state.failedConversionInfo.map(
@@ -119,7 +136,7 @@ const reducer = (state = initialState, action) => {
 						),
 					];
 					console.log({ searchResult });
-				} else {
+				} else if (state.activeFilter === filterSortControls.FILTER_FAILED) {
 					//handle searching in failed conversion info.
 					searchResult = [
 						...state.failedConversionInfo.map(

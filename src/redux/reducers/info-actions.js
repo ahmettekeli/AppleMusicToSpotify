@@ -4,8 +4,11 @@ import {
 	ADD_SONG_INFO,
 	CLEAR_SONG_INFOS,
 	SET_FILTER,
+	SET_SORTING,
 	FILTER_FAILED_CONVERSION_INFO,
 	FILTER_SUCCESSFUL_CONVERSION_INFO,
+	SORT_CONVERSION_INFO_ASCENDING,
+	SORT_CONVERSION_INFO_DESCENDING,
 	SEARCH_CONVERSION_INFO,
 } from "../actionTypes";
 
@@ -36,13 +39,13 @@ export const clearSongInfos = () => {
 	};
 };
 
-export const filterFailedInfo = () => {
+export const filterFailedSongInfo = () => {
 	return {
 		type: FILTER_FAILED_CONVERSION_INFO,
 	};
 };
 
-export const filterSuccessfulInfo = () => {
+export const filterSuccessfulSongInfo = () => {
 	return {
 		type: FILTER_SUCCESSFUL_CONVERSION_INFO,
 	};
@@ -52,6 +55,24 @@ export const searchSongInfo = (searchText) => {
 	return {
 		type: SEARCH_CONVERSION_INFO,
 		payload: searchText,
+	};
+};
+
+export const sortSongInfoAscending = () => {
+	return {
+		type: SORT_CONVERSION_INFO_ASCENDING,
+	};
+};
+export const sortSongInfoDescending = () => {
+	return {
+		type: SORT_CONVERSION_INFO_DESCENDING,
+	};
+};
+
+export const setSorting = (sortingType) => {
+	return {
+		type: SET_SORTING,
+		payload: sortingType,
 	};
 };
 

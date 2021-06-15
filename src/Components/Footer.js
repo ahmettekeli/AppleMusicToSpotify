@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
 	footer: {
 		display: "flex",
 		minHeight: "20vh",
-		backgroundColor: colors.darkBackground,
+		backgroundColor: colors.footerBackground,
 	},
 	container: {
 		display: "flex",

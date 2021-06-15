@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
 import SongCard from "./SongCard";
-import { colors } from "../Utils/variables";
+import { colors, filterSortControls } from "../Utils/variables";
 
 const useStyles = makeStyles({
 	cardContainer: {
@@ -22,69 +22,58 @@ const useStyles = makeStyles({
 
 const CardContainer = (props) => {
 	const classes = useStyles(),
-		[songs, setSongs] = useState([]);
-	// const handleSongCards = (songCards) => {
-	// 	if (songCards) {
-	// 		return songCards.map((info) => (
-	// 			<SongCard
-	// 				key={info.id}
-	// 				isSuccess={info.isSuccess}
-	// 				song={info.song}
-	// 				artist={info.artist}
-	// 				album={info.album}
-	// 				image={info.image}
-	// 				url={info.url}
-	// 			/>
-	// 		));
-	// 	}
-	// 	return null;
-	// };
-	const handleSongCards = () => {
-		if (songs) {
-			return songs.map((info) => (
-				<SongCard
-					key={info.id}
-					isSuccess={info.isSuccess}
-					song={info.song}
-					artist={info.artist}
-					album={info.album}
-					image={info.image}
-					url={info.url}
-				/>
-			));
-		}
-		return null;
-	};
+		[songs, setSongs] = useState([]),
+		getSongCards = (songCards) => {
+			if (songCards) {
+				return songCards.map((info) => (
+					<SongCard
+						key={info.id}
+						isSuccess={info.isSuccess}
+						song={info.song}
+						artist={info.artist}
+						album={info.album}
+						image={info.image}
+						url={info.url}
+					/>
+				));
+			}
+			return null;
+		},
+		handleSongCards = () => {
+			console.log("active filter:", props.activeFilter);
+			console.log("active sorting:", props.activeSorting);
+			if (props.activeFilter || props.activeSorting) {
+				return getSongCards(props.tempConversionInfo);
+			} else {
+				return getSongCards(props.conversionInfo);
+			}
+		};
 
 	useEffect(() => {
-		console.log(props.conversionInfo);
-		if (props.activeFilter) {
-			if (props.activeFilter === "success") {
-				setSongs(props.successConversionInfo);
-			} else {
-				setSongs(props.failedConversionInfo);
-			}
-		} else {
-			setSongs(props.conversionInfo);
-		}
-	}, [props.activeFilter]);
+		setSongs(handleSongCards());
+	}, [props.tempConversionInfo, props.conversionInfo]);
 
-	return <div className={classes.cardContainer}>{handleSongCards()}</div>;
+	// return <div className={classes.cardContainer}>{getSongCards(props.conversionInfo)}</div>;
+	return <div className={classes.cardContainer}>{songs}</div>;
 };
 
 CardContainer.propTypes = {
 	conversionInfo: PropTypes.array,
 	failedConversionInfo: PropTypes.array,
-	successConversionInfo: PropTypes.array,
+	successfulConversionInfo: PropTypes.array,
+	tempConversionInfo: PropTypes.array,
 	activeFilter: PropTypes.string,
+	activeSorting: PropTypes.string,
 };
 
 const mapStateToProps = (state) => {
 	return {
 		conversionInfo: state.info.conversionInfo,
-		failedConversionInfo: state.info.failedInfo,
-		successConversionInfo: state.info.successInfo,
+		failedConversionInfo: state.info.failedConversionInfo,
+		successfulConversionInfo: state.info.successfulConversionInfo,
+		tempConversionInfo: state.info.tempConversionInfo,
 		activeFilter: state.info.activeFilter,
+		activeSorting: state.info.activeSorting,
 	};
 };
 export default connect(mapStateToProps)(CardContainer);
