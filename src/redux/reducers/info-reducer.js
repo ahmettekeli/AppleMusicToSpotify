@@ -43,10 +43,38 @@ const initialState = {
 		// 	artist: "Tamino",
 		// 	album: "Amir",
 		// 	image: "https://picsum.photos/seed/picsum/150/150",
-		// 	vigar: "https://open.spotify.com/track/01Y7ntOQnQtfcBYQuAR4Jf?si=d651afbfdad54809",
+		// 	url: "https://open.spotify.com/track/01Y7ntOQnQtfcBYQuAR4Jf?si=d651afbfdad54809",
 		// },
 	],
-	tempConversionInfo: [],
+	tempConversionInfo: [
+		// {
+		// 	id: 1,
+		// 	isSuccess: true,
+		// 	song: "Indigo Night",
+		// 	artist: "Tamino",
+		// 	album: "Amir",
+		// 	image: "https://picsum.photos/seed/picsum/150/150",
+		// 	url: "https://open.spotify.com/track/62DFvt3IhKq2i8wyigqeFO?si=4a29c51d297c4d6f",
+		// },
+		// {
+		// 	id: 2,
+		// 	isSuccess: true,
+		// 	song: "Habibi",
+		// 	artist: "Tamino",
+		// 	album: "Amir",
+		// 	image: "https://picsum.photos/seed/picsum/150/150",
+		// 	url: "https://open.spotify.com/track/5juBKIr7vbfAUgFpa34DuO?si=0a9b089738bd461e",
+		// },
+		// {
+		// 	id: 3,
+		// 	isSuccess: false,
+		// 	song: "Cigar",
+		// 	artist: "Tamino",
+		// 	album: "Amir",
+		// 	image: "https://picsum.photos/seed/picsum/150/150",
+		// 	url: "https://open.spotify.com/track/01Y7ntOQnQtfcBYQuAR4Jf?si=d651afbfdad54809",
+		// },
+	],
 	songCount: 0,
 	activeFilter: null,
 	activeSorting: null,
@@ -69,6 +97,7 @@ const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				conversionInfo: [...state.conversionInfo, action.payload],
+				tempConversionInfo: [...state.conversionInfo, action.payload],
 			};
 		case CLEAR_SONG_INFOS:
 			return {
@@ -135,41 +164,38 @@ const reducer = (state = initialState, action) => {
 				if (state.activeFilter === filterSortControls.FILTER_SUCCESSFUL) {
 					//handle searching in success conversion info.
 					searchResult = [
-						...state.failedConversionInfo.map(
+						...state.tempConversionInfo.filter(
 							(info) =>
 								info.song.includes(action.payload) ||
 								info.artist.includes(action.payload) ||
 								info.album.includes(action.payload)
 						),
 					];
-					console.log({ searchResult });
 				} else if (state.activeFilter === filterSortControls.FILTER_FAILED) {
 					//handle searching in failed conversion info.
 					searchResult = [
-						...state.failedConversionInfo.map(
+						...state.tempConversionInfo.filter(
 							(info) =>
 								info.song.includes(action.payload) ||
 								info.artist.includes(action.payload) ||
 								info.album.includes(action.payload)
 						),
 					];
-					console.log({ searchResult });
 				}
 			} else {
 				//handle searching in all conversion info.
 				searchResult = [
-					...state.conversionInfo.map(
+					...state.conversionInfo.filter(
 						(info) =>
-							info.song.includes(action.payload) ||
-							info.artist.includes(action.payload) ||
-							info.album.includes(action.payload)
+							info.song.toLowerCase().includes(action.payload.toLowerCase()) ||
+							info.artist.toLowerCase().includes(action.payload.toLowerCase()) ||
+							info.album.toLowerCase().includes(action.payload.toLowerCase())
 					),
 				];
-				console.log({ searchResult });
 			}
 			return {
 				...state,
-				searchedConversionInfo: searchResult,
+				tempConversionInfo: searchResult,
 			};
 		}
 		default:

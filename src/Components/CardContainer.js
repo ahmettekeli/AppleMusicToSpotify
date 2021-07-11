@@ -40,11 +40,7 @@ const CardContainer = (props) => {
 			return null;
 		},
 		handleSongCards = () => {
-			if (props.activeFilter || props.activeSorting) {
-				return getSongCards(props.tempConversionInfo);
-			} else {
-				return getSongCards(props.conversionInfo);
-			}
+			return getSongCards(props.tempConversionInfo);
 		};
 
 	useEffect(() => {

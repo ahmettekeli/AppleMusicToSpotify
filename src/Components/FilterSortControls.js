@@ -10,9 +10,10 @@ import {
 	setFilter,
 	resetFilters,
 } from "../redux/reducers/info-actions";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, withStyles } from "@material-ui/core";
 import { colors, filterSortControls } from "../Utils/variables";
-import { ButtonGroup, Button } from "@material-ui/core";
+import { ButtonGroup, Button, TextField, InputAdornment } from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import SortIcon from "@material-ui/icons/Sort";
 
 const useStyles = makeStyles({
@@ -27,7 +28,22 @@ const useStyles = makeStyles({
 	notActive: {
 		backgroundColor: colors.filterNotActive,
 	},
+	searchField: {
+		width: "60%",
+	},
+	searchIcon: {
+		color: colors.filterNotActive,
+	},
 });
+
+//!TODO style search field.
+const StyledSearchField = withStyles({
+	root: {
+		"& .MuiInput-outline:after": {
+			borderColor: colors.inputFieldFocused,
+		},
+	},
+})(TextField);
 
 function FilterSortControls(props) {
 	const classes = useStyles(),
@@ -35,7 +51,11 @@ function FilterSortControls(props) {
 		[isSuccessfulFilterActive, setIsSuccessfulFilterActive] = useState(false),
 		[isSortedAscending, setIsSortedAscending] = useState(false),
 		[isSortedDescending, setIsSortedDescending] = useState(false),
-		handleSearch = (searchText) => {
+		[searchValue, setSearchValue] = useState(""),
+		handleSearch = (e) => {
+			let searchText = e.target.value;
+			setSearchValue(e.target.value);
+			//!TODO validate search key first here.
 			props.dispatch(searchSongInfo(searchText));
 		},
 		handleFilteringFailedSongCards = () => {
@@ -69,6 +89,19 @@ function FilterSortControls(props) {
 		};
 	return (
 		<ButtonGroup variant="contained" className={classes.root} aria-label="Filter Sort Controls">
+			<StyledSearchField
+				className={classes.searchField}
+				variant="outlined"
+				value={searchValue}
+				onChange={handleSearch}
+				InputProps={{
+					startAdornment: (
+						<InputAdornment position="start">
+							<SearchIcon />
+						</InputAdornment>
+					),
+				}}
+			></StyledSearchField>
 			<Button className={classes.notActive} onClick={handleResettingFilters}>
 				Reset
 			</Button>

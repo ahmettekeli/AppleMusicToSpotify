@@ -85,6 +85,7 @@ function ConversionForm(props) {
 	];
 
 	const handleConversion = async (e) => {
+			//!TODO make sure there is a validation before making an api call.
 			e.preventDefault();
 			store.dispatch(clearSongInfos());
 			handleModalOpen();
@@ -103,7 +104,6 @@ function ConversionForm(props) {
 			}
 		},
 		showValidationError = () => {
-			//!TODO make sure there is a validation before making an api call.
 			console.log("apple music playlist url is not valid");
 		},
 		createInputGroup = () => {
