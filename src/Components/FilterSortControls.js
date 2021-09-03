@@ -86,6 +86,7 @@ function FilterSortControls(props) {
 			props.dispatch(setSorting(null));
 			props.dispatch(setFilter(null));
 			props.dispatch(resetFilters());
+			//!TODO clear search input field here
 		};
 	return (
 		<ButtonGroup variant="contained" className={classes.root} aria-label="Filter Sort Controls">

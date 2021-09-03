@@ -4,6 +4,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Login from "./pages/Login";
 import Convert from "./pages/Convert";
+import Home from "./pages/Home";
 import { makeStyles } from "@material-ui/core";
 import { colors } from "./Utils/variables";
 import "./App.css";
@@ -35,6 +36,10 @@ function App() {
 					<Route path="/convert">
 						{/** Show if logged in. Double check */}
 						<Convert />
+					</Route>
+					<Route path="/">
+						{/** Show if logged in. Double check */}
+						<Home />
 					</Route>
 				</Switch>
 			</div>
