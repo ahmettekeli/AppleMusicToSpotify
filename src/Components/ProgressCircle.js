@@ -32,8 +32,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ProgressCircle(props) {
-	const classes = useStyles(),
-		circleSize = 75;
+	const classes = useStyles();
+	const circleSize = 75;
+	
 	return (
 		<div className={classes.root}>
 			<Box className={classes.outerBox}>

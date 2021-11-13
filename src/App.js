@@ -26,8 +26,8 @@ function App() {
 	const classes = useStyles();
 	return (
 		<div className={classes.container}>
+			<Header />
 			<div className={classes.content}>
-				<Header />
 				<br />
 				<Switch>
 					<Route path="/login">

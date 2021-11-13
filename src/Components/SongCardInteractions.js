@@ -32,25 +32,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SongCardInteractions(props) {
-	const [isSnackBarOpen, setIsSnackBarOpen] = useState(false),
-		{ t } = useTranslation(),
-		classes = useStyles(),
-		handleSnackBarOpen = () => {
-			setIsSnackBarOpen(true);
-		},
-		handleSnackBarClose = () => {
-			setIsSnackBarOpen(false);
-		},
-		handlePlay = (songUrl) => {
-			window.open(songUrl, "_blank");
-		},
-		handleCopyToClipboard = (songUrl) => {
-			navigator.clipboard.writeText(songUrl);
-			handleSnackBarOpen();
-		},
-		handleSearch = (song, artist) => {
-			//!TODO where to search the song? google?
-		};
+	const [isSnackBarOpen, setIsSnackBarOpen] = useState(false);
+	const { t } = useTranslation();
+	const classes = useStyles();
+
+	const handleSnackBarOpen = () => {
+		setIsSnackBarOpen(true);
+	};
+	const handleSnackBarClose = () => {
+		setIsSnackBarOpen(false);
+	};
+	const handlePlay = (songUrl) => {
+		window.open(songUrl, "_blank");
+	};
+	const handleCopyToClipboard = (songUrl) => {
+		navigator.clipboard.writeText(songUrl);
+		handleSnackBarOpen();
+	};
+	const handleSearch = (song, artist) => {
+		//!TODO where to search the song? google?
+	};
+	
 	return (
 		<div className={classes.interactions}>
 			{props.isSuccess ? (

@@ -1,5 +1,4 @@
 import express from "express";
-import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import playlistRoutes from "./API/Routes/appleMusic.js";
 import spotifyAuthRoutes from "./API/Routes/spotify.js";
@@ -18,12 +17,8 @@ app.use((req, res, next) => {
 	next();
 });
 
-app.use(
-	bodyParser.urlencoded({
-		extended: false,
-	})
-);
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(cookieParser());
 app.use("/applemusic", playlistRoutes);
 app.use("/spotify", spotifyAuthRoutes);

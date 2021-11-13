@@ -21,6 +21,7 @@ const useStyle = makeStyles({
 
 function SongCardContent(props) {
 	const classes = useStyle();
+	
 	return (
 		<div className={classes.content}>
 			<CardContent className={classes.details}>

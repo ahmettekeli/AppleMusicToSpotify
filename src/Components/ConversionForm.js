@@ -39,7 +39,9 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: colors.lightBackground,
 		display: "flex",
 		flexDirection: "column",
-		width: "60%",
+		justifyContent: "center",
+		alignItems: "center",
+		minWidth: "90%",
 		background: "#fff",
 		overflow: "auto",
 		borderRadius: "4px",
@@ -47,87 +49,92 @@ const useStyles = makeStyles((theme) => ({
 		padding: theme.spacing(1),
 		margin: theme.spacing(1),
 	},
+	form: {
+		minWidth: "90%",
+	}
 }));
 
 function ConversionForm(props) {
-	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState(""),
-		[spotifyPlaylistName, setSpotifyPlaylistName] = useState(""),
-		[spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState(""),
-		[isModalOpen, setIsModalOpen] = useState(false),
-		{ t } = useTranslation(),
-		classes = useStyles();
+	const [appleMusicPlaylistUrl, setAppleMusicPlaylistUrl] = useState("");
+	const [spotifyPlaylistName, setSpotifyPlaylistName] = useState("");
+	const [spotifyPlaylistDescription, setSpotifyPlaylistDescription] = useState("");
+	const [isModalOpen, setIsModalOpen] = useState(false);
+	const { t } = useTranslation();
+	const classes = useStyles();
 
 	const inputFields = [
 		{
-			label: "Playlist Url",
+			label: t("playlistUrl"),
 			value: appleMusicPlaylistUrl,
 			onChange: (e) => setAppleMusicPlaylistUrl(e.target.value),
-			helperText: "Please enter a valid url",
+			helperText: t("playlistUrlHelperText"),
 			hasError: true,
 			isRequired: true,
 		},
 		{
-			label: "Playlist Name",
+			label: t("playlistName"),
 			value: spotifyPlaylistName,
 			onChange: (e) => setSpotifyPlaylistName(e.target.value),
-			helperText: "Please enter a playlist name",
+			helperText: t("playlistNameHelperText"),
 			hasError: false,
 			isRequired: false,
 		},
 		{
-			label: "Playlist Description",
+			label: t("playlistDescription"),
 			value: spotifyPlaylistDescription,
 			onChange: (e) => setSpotifyPlaylistDescription(e.target.value),
-			helperText: "Please enter a playlist description",
+			helperText: t("playlistDescriptionHelperText"),
 			hasError: false,
 			isRequired: false,
 		},
 	];
 
 	const handleConversion = async (e) => {
-			//!TODO make sure there is a validation before making an api call.
-			e.preventDefault();
-			store.dispatch(clearSongInfos());
-			handleModalOpen();
-			if (validateUrl(appleMusicPlaylistUrl)) {
-				const params = {
-					url: appleMusicPlaylistUrl,
-					name: spotifyPlaylistName,
-					description: spotifyPlaylistDescription,
-				};
-				const apiToken = parseAccessToken(props.query);
-				const userId = await getUserId(apiToken);
-				setIsModalOpen(true);
-				convertPlaylist(userId, apiToken, params);
-			} else {
-				showValidationError();
-			}
-		},
-		showValidationError = () => {
-			console.log("apple music playlist url is not valid");
-		},
-		createInputGroup = () => {
-			return inputFields.map((inputElement, index) => (
-				<InputField
-					key={index}
-					label={inputElement.label}
-					value={inputElement.value}
-					onChange={inputElement.onChange}
-					required={inputElement.isRequired}
-					helperText={inputElement.helperText}
-				/>
-			));
-		},
-		handleModalOpen = () => {
+		//!TODO make sure there is a validation before making an api call.
+		e.preventDefault();
+		store.dispatch(clearSongInfos());
+		handleModalOpen();
+		if (validateUrl(appleMusicPlaylistUrl)) {
+			const params = {
+				url: appleMusicPlaylistUrl,
+				name: spotifyPlaylistName,
+				description: spotifyPlaylistDescription,
+			};
+			const apiToken = parseAccessToken(props.query);
+			const userId = await getUserId(apiToken);
 			setIsModalOpen(true);
-		},
-		handleModalClose = () => {
-			setIsModalOpen(false);
-		};
+			convertPlaylist(userId, apiToken, params);
+		} else {
+			showValidationError();
+		}
+	};
+
+	const showValidationError = () => {
+		console.log("apple music playlist url is not valid");
+	};
+	const createInputGroup = () => {
+		return inputFields.map((inputElement, index) => (
+			<InputField
+				key={index}
+				label={inputElement.label}
+				value={inputElement.value}
+				onChange={inputElement.onChange}
+				required={inputElement.isRequired}
+				helperText={inputElement.helperText}
+			/>
+		));
+	};
+	const handleModalOpen = () => {
+		setIsModalOpen(true);
+	};
+	const handleModalClose = () => {
+		setIsModalOpen(false);
+	};
+	
 	return (
 		<>
 			<div className={classes.formContainer}>
-				<form>
+				<form className={classes.form}>
 					{createInputGroup()}
 					<Button
 						variant="contained"

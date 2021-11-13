@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core";
@@ -21,9 +21,10 @@ const useStyles = makeStyles({
 });
 
 const CardContainer = (props) => {
-	const classes = useStyles(),
-		[songs, setSongs] = useState([]),
-		getSongCards = (songCards) => {
+	const classes = useStyles();
+	const [songs, setSongs] = useState([]);
+	const {tempConversionInfo, conversionInfo} = props;
+	const getSongCards = (songCards) => {
 			if (songCards) {
 				return songCards.map((info) => (
 					<SongCard
@@ -38,14 +39,14 @@ const CardContainer = (props) => {
 				));
 			}
 			return null;
-		},
-		handleSongCards = () => {
-			return getSongCards(props.tempConversionInfo);
 		};
+	const handleSongCards = useCallback(() => {
+		return getSongCards(tempConversionInfo);
+	},[tempConversionInfo]);
 
 	useEffect(() => {
 		setSongs(handleSongCards());
-	}, [props.tempConversionInfo, props.conversionInfo]);
+	}, [tempConversionInfo, conversionInfo, handleSongCards]);
 
 	return <div className={classes.cardContainer}>{songs}</div>;
 };

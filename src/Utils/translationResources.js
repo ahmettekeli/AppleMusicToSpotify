@@ -1,80 +1,12 @@
 import { IconFlagTR, IconFlagDE, IconFlagUS } from "material-ui-flags";
+import en from "../Localization/en.json";
+import de from "../Localization/de.json";
+import tr from "../Localization/tr.json";
 
 export const resources = {
-	en: {
-		translation: {
-			home: "Home",
-			convert: "Convert",
-			howTo: "How to",
-			cancel: "Cancel",
-			login: "Login",
-			copy: "Copy to clipboard",
-			play: "Play",
-			share: "Share",
-			search: "Search song online",
-			language: "Language",
-			// appleMusicPlaylistUrlNotValid: "Apple music playlist url is not valid",
-			// appleMusicPlaylistDataRetrieved: "Playlist data has been retrieved from Apple Music.",
-			// appleMusicPlaylistDataRetrievingFailed: "Playlist data could not be retrieved from Apple Music.",
-			// spotifyUserFound: "User has been found on Spotify.",
-			// spotifyUserNotFound: "User could not be found on Spotify.",
-			// spotifyPlaylistCreated: "Playlist with the name: {{name}} has been created.",
-			// spotifySongNotFound: "Song could not be found in Spotify.",
-			// spotifySongSearchFail: "Could not search songs on Spotify.",
-			// spotifySongsFound: "{{count}} songs has been found on Spotify.",
-			copiedToClipboard: "Song url is copied to the clipboard.",
-		},
-	},
-	de: {
-		translation: {
-			translation: {
-				home: "Startseite",
-				convert: "Konvertieren",
-				howTo: "Wie man",
-				cancel: "Kündigen",
-				login: "Einloggen",
-				copy: "In die Zwischenablage kopieren",
-				play: "Abspielen",
-				share: "Teilen",
-				search: "Song online suchen",
-				language: "Sprache",
-				// appleMusicPlaylistUrlNotValid: "Apple music playlist url is not valid",
-				// appleMusicPlaylistDataRetrieved: "Playlist data has been retrieved from Apple Music.",
-				// appleMusicPlaylistDataRetrievingFailed: "Playlist data could not be retrieved from Apple Music.",
-				// spotifyUserFound: "User has been found on Spotify.",
-				// spotifyUserNotFound: "User could not be found on Spotify.",
-				// spotifyPlaylistCreated: "Playlist with the name: {{name}} has been created.",
-				// spotifySongNotFound: "Song could not be found in Spotify.",
-				// spotifySongSearchFail: "Could not search songs on Spotify.",
-				// spotifySongsFound: "{{count}} songs has been found on Spotify.",
-				copiedToClipboard: "Song-URL wird in die Zwischenablage kopiert",
-			},
-		},
-	},
-	tr: {
-		translation: {
-			home: "Anasayfa",
-			convert: "Donustur",
-			howTo: "Nasil yapilir?",
-			cancel: "Iptal",
-			login: "Giris yap",
-			copy: "Kopyala",
-			play: "Oynat",
-			share: "Paylas",
-			search: "Sarkiyi ara",
-			language: "Dil",
-			// appleMusicPlaylistUrlNotValid: "Apple music playlist url is not valid",
-			// appleMusicPlaylistDataRetrieved: "Playlist data has been retrieved from Apple Music.",
-			// appleMusicPlaylistDataRetrievingFailed: "Playlist data could not be retrieved from Apple Music.",
-			// spotifyUserFound: "User has been found on Spotify.",
-			// spotifyUserNotFound: "User could not be found on Spotify.",
-			// spotifyPlaylistCreated: "Playlist with the name: {{name}} has been created.",
-			// spotifySongNotFound: "Song could not be found in Spotify.",
-			// spotifySongSearchFail: "Could not search songs on Spotify.",
-			// spotifySongsFound: "{{count}} songs has been found on Spotify.",
-			copiedToClipboard: "Sarki yolu kopyalandi.",
-		},
-	},
+	en,
+	de,
+	tr
 };
 
 export const languages = {

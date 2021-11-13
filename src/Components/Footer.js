@@ -40,11 +40,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function Footer(props) {
-	const classes = useStyles(),
-		{ t } = useTranslation(),
-		handleOnClick = (url) => {
-			window.open(url, "_blank");
-		};
+	const classes = useStyles();
+	const { t } = useTranslation();
+
+	const handleOnClick = (url) => {
+		window.open(url, "_blank");
+	};
+
 	return (
 		<footer className={classes.footer}>
 			<div className={classes.container}>

@@ -1,15 +1,14 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
-// import dotenv from "dotenv";
-// dotenv.config();
-// const API_LOGIN_URL = process.env.API_LOGIN_URL;
-// const API_LOGIN_URL = "https://apple-music-playlist-scrap-api.herokuapp.com/spotify/login";
-const API_LOGIN_URL = "http://localhost:3004/spotify/login";
 
 const Login = () => {
-	const { t } = useTranslation();
 	//Checking if already logged in.
-	return <a href={API_LOGIN_URL}>{t("login")}</a>;
+	return (
+		<a href={process.env.REACT_APP_API_LOGIN_URL}>
+			<button>
+				<img src={process.env.REACT_APP_SPOTIFY_LOGIN_IMG_URL} alt="login" height="40" width="200"/>
+			</button>
+		</a>
+	);
 };
 
 export default Login;

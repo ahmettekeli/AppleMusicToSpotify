@@ -9,13 +9,14 @@ import {
 	findPlaylist,
 	userEndpoint,
 	encodeItem,
-} from "../Utils/spotifyUtil";
+} from "../Utils/spotifyUtil.js";
 
 //!TODO implement the option to abort conversion
 
 // const API_URL = process.env.API_URL;
-const API_URL = "http://localhost:3004/applemusic/scrap",
-	SPOTIFY_LOGIN_URL = "";
+const API_URL = "http://localhost:3004/applemusic/scrap";
+const SPOTIFY_LOGIN_URL = "";
+
 export const getPlaylistDataFromAPI = async (url, requestBody) => {
 	try {
 		const response = await axios.post(url, requestBody);

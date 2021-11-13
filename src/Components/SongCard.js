@@ -18,13 +18,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SongCard = (props) => {
-	const classes = useStyles(),
-		getCardBgcolor = (isSuccess) => {
-			if (isSuccess) {
-				return colors.success;
-			}
-			return colors.danger;
-		};
+	const classes = useStyles();
+	
+	const getCardBgcolor = (isSuccess) => {
+		if (isSuccess) {
+			return colors.success;
+		}
+		return colors.danger;
+	};
 
 	return (
 		<Card className={classes.root} style={{ backgroundColor: getCardBgcolor(props.isSuccess) }}>

@@ -46,48 +46,55 @@ const StyledSearchField = withStyles({
 })(TextField);
 
 function FilterSortControls(props) {
-	const classes = useStyles(),
-		[isFailedFilterActive, setIsFailedFilterActive] = useState(false),
-		[isSuccessfulFilterActive, setIsSuccessfulFilterActive] = useState(false),
-		[isSortedAscending, setIsSortedAscending] = useState(false),
-		[isSortedDescending, setIsSortedDescending] = useState(false),
-		[searchValue, setSearchValue] = useState(""),
-		handleSearch = (e) => {
-			let searchText = e.target.value;
-			setSearchValue(e.target.value);
-			//!TODO validate search key first here.
-			props.dispatch(searchSongInfo(searchText));
-		},
-		handleFilteringFailedSongCards = () => {
-			setIsSuccessfulFilterActive(false);
-			setIsFailedFilterActive(true);
-			props.dispatch(setFilter(filterSortControls.FILTER_FAILED));
-			props.dispatch(filterFailedSongInfo());
-		},
-		handleFilteringSuccessfulSongCards = () => {
-			setIsFailedFilterActive(false);
-			setIsSuccessfulFilterActive(true);
-			props.dispatch(setFilter(filterSortControls.FILTER_SUCCESSFUL));
-			props.dispatch(filterSuccessfulSongInfo());
-		},
-		handleSortingAscending = () => {
-			setIsSortedDescending(false);
-			setIsSortedAscending(true);
-			props.dispatch(setSorting(filterSortControls.SORT_ASCENDING));
-			props.dispatch(sortSongInfoAscending());
-		},
-		handleSortingDescending = () => {
-			setIsSortedAscending(false);
-			setIsSortedDescending(true);
-			props.dispatch(setSorting(filterSortControls.SORT_DESCENDING));
-			props.dispatch(sortSongInfoDescending());
-		},
-		handleResettingFilters = () => {
-			props.dispatch(setSorting(null));
-			props.dispatch(setFilter(null));
-			props.dispatch(resetFilters());
-			//!TODO clear search input field here
-		};
+	const classes = useStyles();
+	const [isFailedFilterActive, setIsFailedFilterActive] = useState(false);
+	const [isSuccessfulFilterActive, setIsSuccessfulFilterActive] = useState(false);
+	const [isSortedAscending, setIsSortedAscending] = useState(false);
+	const [isSortedDescending, setIsSortedDescending] = useState(false);
+	const [searchValue, setSearchValue] = useState("");
+
+	const handleSearch = (e) => {
+		let searchText = e.target.value;
+		setSearchValue(e.target.value);
+		//!TODO validate search key first here.
+		props.dispatch(searchSongInfo(searchText));
+	};
+
+	const handleFilteringFailedSongCards = () => {
+		setIsSuccessfulFilterActive(false);
+		setIsFailedFilterActive(true);
+		props.dispatch(setFilter(filterSortControls.FILTER_FAILED));
+		props.dispatch(filterFailedSongInfo());
+	};
+
+	const handleFilteringSuccessfulSongCards = () => {
+		setIsFailedFilterActive(false);
+		setIsSuccessfulFilterActive(true);
+		props.dispatch(setFilter(filterSortControls.FILTER_SUCCESSFUL));
+		props.dispatch(filterSuccessfulSongInfo());
+	};
+
+	const handleSortingAscending = () => {
+		setIsSortedDescending(false);
+		setIsSortedAscending(true);
+		props.dispatch(setSorting(filterSortControls.SORT_ASCENDING));
+		props.dispatch(sortSongInfoAscending());
+	};
+
+	const handleSortingDescending = () => {
+		setIsSortedAscending(false);
+		setIsSortedDescending(true);
+		props.dispatch(setSorting(filterSortControls.SORT_DESCENDING));
+		props.dispatch(sortSongInfoDescending());
+	};
+
+	const handleResettingFilters = () => {
+		props.dispatch(setSorting(null));
+		props.dispatch(setFilter(null));
+		props.dispatch(resetFilters());
+		//!TODO clear search input field here
+	};
+	
 	return (
 		<ButtonGroup variant="contained" className={classes.root} aria-label="Filter Sort Controls">
 			<StyledSearchField

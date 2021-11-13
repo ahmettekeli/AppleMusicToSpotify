@@ -1,0 +1,30 @@
+{
+    "translation": {
+        "home": "Anasayfa",
+        "convert": "Donustur",
+        "howTo": "Nasil yapilir?",
+        "cancel": "Iptal",
+        "login": "Giris yap",
+        "copy": "Kopyala",
+        "play": "Oynat",
+        "share": "Paylas",
+        "search": "Sarkiyi ara",
+        "language": "Dil",
+        "playlistUrl": "Calma listesi linki",
+        "playlistDescription": "Calma listesi aciklamasi",
+        "playlistName": "Calma listesi adi",
+        "playlistUrlHelperText": "Lutfen gecerli bir Url girin",
+        "playlistNameHelperText": "Lutfen gecerli bir calma listesi adi girin",
+        "playlistDescriptionHelperText": "Lutfen gecerli bir calma listesi aciklamasi girin",
+        "appleMusicPlaylistUrlNotValid": "Apple Muzik linki gecerli degil",
+        "appleMusicPlaylistDataRetrieved": "Calma listesi verisi Apple Muzik'ten basariyla alindi.",
+        "appleMusicPlaylistDataRetrievingFailed": "Calma listesi verisi Apple Muzik'ten alinamadi.",
+        "spotifyUserFound": "Kullanici Spotify'da bulundu.",
+        "spotifyUserNotFound": "Kullanici Spotify'da bulunamadi.",
+        "spotifyPlaylistCreated": "{{name}} isimli calma listesi olusturuldu.",
+        "spotifySongNotFound": "Sarki Spotify'da bulunamadi",
+        "spotifySongSearchFail": "Spotify'da sarki aranamadi.",
+        "spotifySongsFound": "{{count}} adet sarki Spotify'da bulundu..",
+        "copiedToClipboard": "Sarki yolu kopyalandi."
+    }
+}

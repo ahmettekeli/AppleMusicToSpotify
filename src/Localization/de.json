@@ -1,0 +1,30 @@
+{
+    "translation": {
+        "home": "Startseite",
+        "convert": "Konvertieren",
+        "howTo": "Wie man?",
+        "cancel": "Kündigen",
+        "login": "Einloggen",
+        "copy": "In die Zwischenablage kopieren",
+        "play": "Abspielen",
+        "share": "Teilen",
+        "search": "Song online suchen",
+        "language": "Sprache",
+        "playlistUrl": "Playlist-URL",
+        "playlistDescription": "Playlist-Beschreibung",
+        "playlistName": "Playlist-Name",
+        "playlistUrlHelperText": "Bitte geben Sie eine gültige URL ein",
+        "playlistNameHelperText": "Bitte geben Sie einen Playlist-Namen ein",
+        "playlistDescriptionHelperText": "Bitte geben Sie eine Playlist-Beschreibung ein",
+        "appleMusicPlaylistUrlNotValid": "Die URL der Apple Musik-Wiedergabeliste ist nicht gültig",
+        "appleMusicPlaylistDataRetrieved": "Playlist-Daten wurden von Apple Music abgerufen",
+        "appleMusicPlaylistDataRetrievingFailed": "Playlist-Daten konnten nicht von Apple Music abgerufen werden",
+        "spotifyUserFound": "Benutzer wurde auf Spotify gefunden",
+        "spotifyUserNotFound": "Benutzer konnte auf Spotify nicht gefunden werden",
+        "spotifyPlaylistCreated": "Playlist mit dem Namen: {{name}} wurde erstellt.",
+        "spotifySongNotFound": "Lied konnte nicht in Spotify gefunden werden",
+        "spotifySongSearchFail": "Lieder auf Spotify konnten nicht gesucht werden",
+        "spotifySongsFound": "Auf Spotify wurden {{count}} Songs gefunden.",
+        "copiedToClipboard": "Song-URL wird in die Zwischenablage kopiert"
+    }
+}

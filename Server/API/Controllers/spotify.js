@@ -1,97 +1,96 @@
-// require("dotenv").config();
-import dotenv from "dotenv";
 import axios from "axios";
 import { generateRandomString } from "../Utils/utility.js";
-import queryString from "querystring";
+import dotenv from "dotenv";
 dotenv.config();
-const redirect_uri = process.env.REDIRECT_URI || "http://localhost:3004/spotify/callback";
+
+const redirect_uri = process.env.REACT_APP_REDIRECT_URI;
 const stateKey = "spotify_auth_state";
 
 const login = (req, res) => {
-		const state = generateRandomString(16);
-		console.log(res.cookie);
-		res.cookie(stateKey, state);
+	const state = generateRandomString(16);
+	res.cookie(stateKey, state);
 
-		const query = queryString.stringify({
-			response_type: "code",
-			client_id: process.env.SPOTIFY_CLIENT_ID,
-			scope: "user-read-private user-read-email playlist-modify-public playlist-modify-private", //add playlist modification scopes.
-			redirect_uri,
-			state,
-		});
-		res.redirect("https://accounts.spotify.com/authorize?" + query);
-	},
-	getToken = async (req, res) => {
-		console.log("cookies", req.cookies);
-		const requestUrl = "https://accounts.spotify.com/api/token",
-			code = req.query.code || null,
-			state = req.query.state || null,
-			storedState = req.cookies ? req.cookies[stateKey] : null,
-			requestParams = {
-				grant_type: "authorization_code",
-				code,
-				redirect_uri,
-			},
-			requestHeader = {
-				Authorization:
-					"Basic " +
-					new Buffer.from(process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET).toString(
-						"base64"
-					),
-				contentType: "application/x-www-form-urlencoded",
-			};
-		if (state === null || state !== storedState) {
-			res.redirect(
-				"/#" +
-					queryString.stringify({
-						error: "state_missmatch",
-					})
-			);
-		} else {
-			res.clearCookie("stateKey");
-			try {
-				let response = await axios.post(requestUrl, null, {
-					params: requestParams,
-					headers: requestHeader,
-				});
-				const accessToken = response.data.access_token,
-					uri = process.env.FRONTEND_URI || "http://localhost:3000";
-				res.redirect(uri + "/convert/?access_token=" + accessToken);
-			} catch (error) {
-				res.status(200).json({
-					error: error.message,
-				});
-			}
-		}
-	},
-	refreshToken = async (req, res) => {
-		const refresh_token = req.query.refresh_token,
-			requestUrl = "https://accounts.spotify.com/api/token",
-			requestHeader = {
-				Authorization:
-					"Basic " +
-					new Buffer.from(process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET).toString(
-						"base64"
-					),
-				contentType: "application/x-www-form-urlencoded",
-			},
-			requestParams = {
-				grant_type: "refresh_token",
-				refresh_token: refresh_token,
-			};
+	const query = new URLSearchParams({
+		response_type: "code",
+		client_id: process.env.REACT_APP_SPOTIFY_CLIENT_ID,
+		scope: "user-read-private user-read-email playlist-modify-public playlist-modify-private", //add playlist modification scopes.
+		redirect_uri,
+		state,
+	}).toString();
+	res.redirect(process.env.REACT_APP_SPOTIFY_AUTH_URI + query);
+};
+
+const getToken = async (req, res) => {
+	const code = req.query.code || null;
+	const state = req.query.state || null;
+	const storedState = req.cookies ? req.cookies[stateKey] : null;
+	const requestParams = {
+		grant_type: "authorization_code",
+		code,
+		redirect_uri,
+	};
+	const requestHeader = {
+		Authorization:
+			"Basic " +
+			new Buffer.from(process.env.REACT_APP_SPOTIFY_CLIENT_ID + ":" + process.env.REACT_APP_SPOTIFY_CLIENT_SECRET).toString(
+				"base64"
+			),
+		contentType: "application/x-www-form-urlencoded",
+	};
+
+	if (state === null || state !== storedState) {
+		res.redirect(
+			"/#" +
+				new URLSearchParams({
+					error: "state_missmatch",
+				})
+		).toString();
+	} else {
+		res.clearCookie("stateKey");
 		try {
-			response = await axios.post(requestUrl, null, {
+			let response = await axios.post(process.env.REACT_APP_SPOTIFY_TOKEN_REQUEST_URI, null, {
 				params: requestParams,
 				headers: requestHeader,
 			});
-			const accessToken = response.data.access_token,
-				uri = process.env.FRONTEND_URI || "http://localhost:3000";
-			res.redirect(uri + "?access_token" + accessToken);
+			const accessToken = response.data.access_token;
+			const uri = process.env.REACT_APP_FRONTEND_URI;
+			res.redirect(uri + process.env.REACT_APP_REDIRECT_URI_PREFIX + accessToken);
 		} catch (error) {
 			res.status(200).json({
 				error: error.message,
 			});
 		}
+	}
+};
+
+const refreshToken = async (req, res) => {
+	const refresh_token = req.query.refresh_token;
+	const requestHeader = {
+		Authorization:
+			"Basic " +
+			new Buffer.from(process.env.REACT_APP_SPOTIFY_CLIENT_ID + ":" + process.env.REACT_APP_SPOTIFY_CLIENT_SECRET).toString(
+				"base64"
+			),
+		contentType: "application/x-www-form-urlencoded",
 	};
+	const requestParams = {
+		grant_type: "refresh_token",
+		refresh_token: refresh_token,
+	};
+
+	try {
+		response = await axios.post(process.env.REACT_APP_SPOTIFY_TOKEN_REQUEST_URI, null, {
+			params: requestParams,
+			headers: requestHeader,
+		});
+		const accessToken = response.data.access_token,
+			uri = process.env.REACT_APP_FRONTEND_URI;
+		res.redirect(uri + "?access_token" + accessToken);
+	} catch (error) {
+		res.status(200).json({
+			error: error.message,
+		});
+	}
+};
 
 export default { login, getToken, refreshToken };
