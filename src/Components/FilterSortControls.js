@@ -107,9 +107,9 @@ function FilterSortControls(props) {
 						<InputAdornment position="start">
 							<SearchIcon />
 						</InputAdornment>
-					),
+					)
 				}}
-			></StyledSearchField>
+			/>
 			<Button className={classes.notActive} onClick={handleResettingFilters}>
 				Reset
 			</Button>

@@ -115,7 +115,8 @@ function ConversionForm(props) {
 	const createInputGroup = () => {
 		return inputFields.map((inputElement, index) => (
 			<InputField
-				key={index}
+				key={inputElement.label}
+				id={inputElement.label + index}
 				label={inputElement.label}
 				value={inputElement.value}
 				onChange={inputElement.onChange}

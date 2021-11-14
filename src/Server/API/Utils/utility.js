@@ -21,6 +21,7 @@ export const scrap = async (url) => {
 					album: albums[index].children[0].children[0].children[0].innerText,
 				});
 			}
+			console.log({playlist});
 			return playlist;
 		});
 		await browser.close();

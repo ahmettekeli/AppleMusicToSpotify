@@ -19,7 +19,7 @@ function InputField(props) {
 	return (
 		<div>
 			<StyledTextField
-				id="standard-basic"
+				id={props.id}
 				label={props.label}
 				value={props.value}
 				onChange={props.onChange}
